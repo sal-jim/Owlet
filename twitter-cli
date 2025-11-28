@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# twitter-cli - CLI tool for posting tweets and replies
+# Requires Node.js 20+ and pnpm
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR" && exec pnpm exec tsx src/index.ts "$@"

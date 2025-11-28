@@ -1,0 +1,33 @@
+{
+	"name": "twitter-cli",
+	"version": "0.1.0",
+	"description": "CLI tool for tweeting and replying via Twitter GraphQL API",
+	"type": "module",
+	"main": "dist/index.js",
+	"bin": {
+		"twitter-cli": "dist/index.js"
+	},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsx src/index.ts",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"format": "biome format --write .",
+		"binary": "bun build --compile --minify src/index.ts --outfile twitter-cli"
+	},
+	"dependencies": {
+		"commander": "^12.1.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^22.10.0",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.2",
+		"vitest": "^2.1.6"
+	},
+	"engines": {
+		"node": ">=20"
+	}
+}
