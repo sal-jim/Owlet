@@ -625,6 +625,7 @@ program
     });
     const engine = resolveEngineMode(opts.engine || config.engine);
     const useSweetistics = shouldUseSweetistics(engine, Boolean(sweetistics.apiKey));
+    const resolvedEngine = useSweetistics ? 'sweetistics' : 'graphql';
 
     if (useSweetistics) {
       if (!sweetistics.apiKey) {
@@ -643,7 +644,7 @@ program
         if (result.user.email) {
           console.log(`📧 ${result.user.email}`);
         }
-        console.log(`⚙️  Engine: ${engine}`);
+        console.log(`⚙️  Engine: ${resolvedEngine}`);
         return;
       }
 
@@ -677,7 +678,7 @@ program
     if (result.success && result.user) {
       console.log(`🙋 Logged in as @${result.user.username} (${result.user.name})`);
       console.log(`🪪 User ID: ${result.user.id}`);
-      console.log(`⚙️  Engine: ${engine}`);
+      console.log(`⚙️  Engine: ${resolvedEngine}`);
     } else {
       console.error(`❌ Failed to determine current user: ${result.error ?? 'Unknown error'}`);
       process.exit(1);
