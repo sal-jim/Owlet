@@ -61,6 +61,8 @@ Example `~/.config/bird/config.json5` (Firefox + GraphQL defaults):
   firefoxProfile: "default-release",
   // Optional: Sweetistics defaults if you want fallback/overrides
   sweetisticsApiKey: "sweet-...",
+  // Allow/deny cookie sources (both default to true)
+  allowFirefox: true,
   // Disable Chrome cookies entirely (optional)
   allowChrome: false
 }
@@ -76,6 +78,9 @@ Used only when transport resolves to **graphql**:
 - **Env/flags** always override browser cookies.
 
 Transport is chosen first; then, if transport is GraphQL, the cookie source is resolved with the same precedence.
+
+Config precedence: CLI flags > environment variables > project config (`.birdrc.json5`) > global config (`~/.config/bird/config.json5`).
+When `allowChrome` or `allowFirefox` is set to `false`, that source is skipped entirely during credential resolution.
 
 ### Post a tweet
 
