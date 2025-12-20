@@ -15,3 +15,4 @@ coverage/
 twitter-cli.bin
 bird
 .env
+.*.bun-build

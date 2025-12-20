@@ -1,5 +1,5 @@
 {
-  "name": "bird",
+  "name": "@steipete/bird",
   "version": "0.1.0",
   "description": "CLI tool for tweeting and replying via Twitter/X GraphQL API",
   "type": "module",
@@ -8,30 +8,32 @@
     "bird": "dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "pnpm run build:dist && pnpm run build:binary",
+    "build:dist": "tsc",
+    "build:binary": "bun build --compile --minify src/index.ts --outfile bird",
     "dev": "tsx src/index.ts",
-    "bird": "pnpm run build && node dist/index.js",
+    "bird": "pnpm run build:dist && node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "binary": "bun build --compile --minify src/index.ts --outfile bird",
+    "binary": "pnpm run build:binary",
     "graphql:update": "tsx scripts/update-query-ids.ts"
   },
   "dependencies": {
     "commander": "^14.0.2",
-    "devalue": "^5.5.0",
+    "devalue": "^5.6.1",
     "json5": "^2.2.3",
     "kleur": "^4.1.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.8",
-    "@types/node": "^24.10.1",
-    "@vitest/coverage-v8": "4.0.15",
+    "@biomejs/biome": "^2.3.10",
+    "@types/node": "^25.0.3",
+    "@vitest/coverage-v8": "4.0.16",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.15"
+    "vitest": "^4.0.16"
   },
   "engines": {
     "node": ">=20"
