@@ -141,7 +141,7 @@ describe('cookies', () => {
       expect(result.cookies.source).toContain('Firefox');
     });
 
-    it('honors cookieSource=safari', async () => {
+    itIfDarwin('honors cookieSource=safari', async () => {
       const { resolveCredentials } = await import('../src/lib/cookies.js');
       const fs = await import('node:fs');
 
