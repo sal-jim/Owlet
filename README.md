@@ -2,6 +2,11 @@
 
 `bird` is a fast X CLI for tweeting, replying, and reading via X/Twitter GraphQL (cookie auth).
 
+## Disclaimer
+
+This project uses X/Twitter’s **undocumented** web GraphQL API (and cookie auth). X can change endpoints, query IDs,
+and anti-bot behavior at any time — **expect this to break without notice**.
+
 ## Install
 
 ```bash
