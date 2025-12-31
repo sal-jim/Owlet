@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.1 — Unreleased
+## 0.4.1 — 2025-12-31
 
 ### Added
 - `bookmarks` command to list your bookmarked tweets.
