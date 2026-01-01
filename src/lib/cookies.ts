@@ -22,6 +22,7 @@ export type CookieSource = 'safari' | 'chrome' | 'firefox';
 const TWITTER_COOKIE_NAMES = ['auth_token', 'ct0'] as const;
 const TWITTER_URL = 'https://x.com/';
 const TWITTER_ORIGINS: string[] = ['https://x.com/', 'https://twitter.com/'];
+const DEFAULT_COOKIE_TIMEOUT_MS = 20_000;
 
 function normalizeValue(value: unknown): string | null {
   if (typeof value !== 'string') {
@@ -102,6 +103,7 @@ async function readTwitterCookiesFromBrowser(options: {
   source: CookieSource;
   chromeProfile?: string;
   firefoxProfile?: string;
+  cookieTimeoutMs?: number;
 }): Promise<CookieExtractionResult> {
   const warnings: string[] = [];
   const out = buildEmpty();
@@ -114,6 +116,7 @@ async function readTwitterCookiesFromBrowser(options: {
     mode: 'merge',
     chromeProfile: options.chromeProfile,
     firefoxProfile: options.firefoxProfile,
+    timeoutMs: options.cookieTimeoutMs,
   });
   warnings.push(...providerWarnings);
 
@@ -170,9 +173,18 @@ export async function resolveCredentials(options: {
   cookieSource?: CookieSource | CookieSource[];
   chromeProfile?: string;
   firefoxProfile?: string;
+  cookieTimeoutMs?: number;
 }): Promise<CookieExtractionResult> {
   const warnings: string[] = [];
   const cookies = buildEmpty();
+  const cookieTimeoutMs =
+    typeof options.cookieTimeoutMs === 'number' &&
+    Number.isFinite(options.cookieTimeoutMs) &&
+    options.cookieTimeoutMs > 0
+      ? options.cookieTimeoutMs
+      : process.platform === 'darwin'
+        ? DEFAULT_COOKIE_TIMEOUT_MS
+        : undefined;
 
   if (options.authToken) {
     cookies.authToken = options.authToken;
@@ -199,6 +211,7 @@ export async function resolveCredentials(options: {
       source,
       chromeProfile: options.chromeProfile,
       firefoxProfile: options.firefoxProfile,
+      cookieTimeoutMs,
     });
     warnings.push(...res.warnings);
     if (res.cookies.authToken && res.cookies.ct0) {

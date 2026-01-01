@@ -4,13 +4,18 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@steipete/sweet-cookie':
+    hash: 05180a0fa74ba5074775f965db7d4561e59ba51978bd5e955c0e4f058a4ed340
+    path: patches/@steipete__sweet-cookie.patch
+
 importers:
 
   .:
     dependencies:
       '@steipete/sweet-cookie':
         specifier: 0.1.0
-        version: 0.1.0
+        version: 0.1.0(patch_hash=05180a0fa74ba5074775f965db7d4561e59ba51978bd5e955c0e4f058a4ed340)
       commander:
         specifier: ^14.0.2
         version: 14.0.2
@@ -1051,7 +1056,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@steipete/sweet-cookie@0.1.0': {}
+  '@steipete/sweet-cookie@0.1.0(patch_hash=05180a0fa74ba5074775f965db7d4561e59ba51978bd5e955c0e4f058a4ed340)': {}
 
   '@types/chai@5.2.3':
     dependencies:

@@ -4,11 +4,13 @@ type SweetCookieResult = { cookies: Array<{ name: string; value: string; domain?
 
 const sweet = vi.hoisted(() => ({
   results: new Map<string, SweetCookieResult>(),
+  options: new Map<string, { timeoutMs?: number }>(),
 }));
 
 vi.mock('@steipete/sweet-cookie', () => ({
-  getCookies: vi.fn(async (options: { browsers?: string[] }) => {
+  getCookies: vi.fn(async (options: { browsers?: string[]; timeoutMs?: number }) => {
     const browser = options.browsers?.[0] ?? 'unknown';
+    sweet.options.set(browser, options);
     return (
       sweet.results.get(browser) ?? {
         cookies: [],
@@ -24,6 +26,7 @@ describe('cookies', () => {
   beforeEach(() => {
     vi.resetModules();
     sweet.results.clear();
+    sweet.options.clear();
     process.env = { ...originalEnv };
     process.env.AUTH_TOKEN = undefined;
     process.env.TWITTER_AUTH_TOKEN = undefined;
@@ -186,11 +189,16 @@ describe('cookies', () => {
       });
 
       const { resolveCredentials } = await import('../src/lib/cookies.js');
-      const result = await resolveCredentials({ cookieSource: 'chrome', chromeProfile: 'Default' });
+      const result = await resolveCredentials({
+        cookieSource: 'chrome',
+        chromeProfile: 'Default',
+        cookieTimeoutMs: 15000,
+      });
 
       expect(result.cookies.authToken).toBe('test_auth');
       expect(result.cookies.ct0).toBe('test_ct0');
       expect(result.cookies.source).toContain('Chrome');
+      expect(sweet.options.get('chrome')?.timeoutMs).toBe(15000);
     });
 
     it('uses default browser order when cookieSource is omitted', async () => {

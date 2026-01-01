@@ -88,6 +88,7 @@ bird query-ids --fresh
 
 Global options:
 - `--timeout <ms>`: abort requests after the given timeout (milliseconds).
+- `--cookie-timeout <ms>`: cookie extraction timeout for keychain/OS helpers (milliseconds).
 - `--quote-depth <n>`: max quoted tweet depth in JSON output (default: 1; 0 disables).
 - `--plain`: stable output (no emoji, no color).
 - `--no-emoji`: disable emoji output.
@@ -128,6 +129,7 @@ Example `~/.config/bird/config.json5`:
   // Cookie source order for browser extraction (string or array)
   cookieSource: ["firefox", "safari"],
   firefoxProfile: "default-release",
+  cookieTimeoutMs: 20000,
   timeoutMs: 20000,
   quoteDepth: 1
 }
@@ -135,6 +137,7 @@ Example `~/.config/bird/config.json5`:
 
 Environment shortcuts:
 - `BIRD_TIMEOUT_MS`
+- `BIRD_COOKIE_TIMEOUT_MS`
 - `BIRD_QUOTE_DEPTH`
 
 ## Output

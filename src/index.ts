@@ -108,6 +108,7 @@ type BirdConfig = {
   chromeProfile?: string;
   firefoxProfile?: string;
   cookieSource?: CookieSource | CookieSource[];
+  cookieTimeoutMs?: number;
   timeoutMs?: number;
   quoteDepth?: number;
 };
@@ -187,6 +188,7 @@ program
   .option('--ct0 <token>', 'Twitter ct0 cookie')
   .option('--chrome-profile <name>', 'Chrome profile name for cookie extraction', config.chromeProfile)
   .option('--firefox-profile <name>', 'Firefox profile name for cookie extraction', config.firefoxProfile)
+  .option('--cookie-timeout <ms>', 'Cookie extraction timeout in milliseconds (keychain/OS helpers)')
   .option(
     '--cookie-source <source>',
     'Cookie source for browser cookie extraction (repeatable)',
@@ -207,6 +209,7 @@ type CredentialsOptions = {
   chromeProfile?: string;
   firefoxProfile?: string;
   cookieSource?: CookieSource[];
+  cookieTimeout?: string | number;
 };
 
 function resolveCredentialsFromOptions(opts: CredentialsOptions): ReturnType<typeof resolveCredentials> {
@@ -219,6 +222,7 @@ function resolveCredentialsFromOptions(opts: CredentialsOptions): ReturnType<typ
     cookieSource,
     chromeProfile: opts.chromeProfile || config.chromeProfile,
     firefoxProfile: opts.firefoxProfile || config.firefoxProfile,
+    cookieTimeoutMs: resolveCookieTimeoutFromOptions(opts),
   });
 }
 
@@ -243,6 +247,10 @@ function resolveTimeoutMs(...values: Array<string | number | undefined | null>):
 
 function resolveTimeoutFromOptions(options: { timeout?: string | number }): number | undefined {
   return resolveTimeoutMs(options.timeout, config.timeoutMs, process.env.BIRD_TIMEOUT_MS);
+}
+
+function resolveCookieTimeoutFromOptions(options: { cookieTimeout?: string | number }): number | undefined {
+  return resolveTimeoutMs(options.cookieTimeout, config.cookieTimeoutMs, process.env.BIRD_COOKIE_TIMEOUT_MS);
 }
 
 function resolveQuoteDepth(...values: Array<string | number | undefined | null>): number | undefined {

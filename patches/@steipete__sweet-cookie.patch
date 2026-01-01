@@ -1,0 +1,13 @@
+diff --git a/dist/providers/chromeSqliteMac.js b/dist/providers/chromeSqliteMac.js
+index 71c815f77378d03e07061976ac372b3a55a61ac4..3a85a2fce102128d7e7b69145d97bc353f663008 100644
+--- a/dist/providers/chromeSqliteMac.js
++++ b/dist/providers/chromeSqliteMac.js
+@@ -15,7 +15,7 @@ export async function getCookiesFromChromeSqliteMac(options, origins, allowlistN
+     const passwordResult = await readKeychainGenericPasswordFirst({
+         account: 'Chrome',
+         services: ['Chrome Safe Storage'],
+-        timeoutMs: 3_000,
++        timeoutMs: options.timeoutMs ?? 3_000,
+         label: 'Chrome Safe Storage',
+     });
+     if (!passwordResult.ok) {
