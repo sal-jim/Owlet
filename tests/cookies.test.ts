@@ -201,6 +201,26 @@ describe('cookies', () => {
       expect(sweet.options.get('chrome')?.timeoutMs).toBe(15000);
     });
 
+    it('defaults to a 30s cookie timeout on macOS', async () => {
+      if (process.platform !== 'darwin') {
+        return;
+      }
+      sweet.results.set('chrome', {
+        cookies: [
+          { name: 'auth_token', value: 'test_auth', domain: 'x.com' },
+          { name: 'ct0', value: 'test_ct0', domain: 'x.com' },
+        ],
+        warnings: [],
+      });
+
+      const { resolveCredentials } = await import('../src/lib/cookies.js');
+      const result = await resolveCredentials({ cookieSource: 'chrome' });
+
+      expect(result.cookies.authToken).toBe('test_auth');
+      expect(result.cookies.ct0).toBe('test_ct0');
+      expect(sweet.options.get('chrome')?.timeoutMs).toBe(30000);
+    });
+
     it('uses default browser order when cookieSource is omitted', async () => {
       sweet.results.set('safari', { cookies: [], warnings: [] });
       sweet.results.set('chrome', { cookies: [], warnings: [] });
