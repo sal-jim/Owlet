@@ -833,8 +833,8 @@ program
             if (user.description) {
               console.log(`  ${user.description.slice(0, 100)}${user.description.length > 100 ? '...' : ''}`);
             }
-            if (user.followers_count !== undefined) {
-              console.log(`  ${p('info')}${user.followers_count.toLocaleString()} followers`);
+            if (user.followersCount !== undefined) {
+              console.log(`  ${p('info')}${user.followersCount.toLocaleString()} followers`);
             }
             console.log('──────────────────────────────────────────────────');
           }
@@ -896,8 +896,8 @@ program
             if (user.description) {
               console.log(`  ${user.description.slice(0, 100)}${user.description.length > 100 ? '...' : ''}`);
             }
-            if (user.followers_count !== undefined) {
-              console.log(`  ${p('info')}${user.followers_count.toLocaleString()} followers`);
+            if (user.followersCount !== undefined) {
+              console.log(`  ${p('info')}${user.followersCount.toLocaleString()} followers`);
             }
             console.log('──────────────────────────────────────────────────');
           }

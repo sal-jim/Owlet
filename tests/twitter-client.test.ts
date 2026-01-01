@@ -1247,6 +1247,7 @@ describe('TwitterClient', () => {
     const makeUserResult = (id: string, username: string, name = username) => ({
       __typename: 'User',
       rest_id: id,
+      is_blue_verified: true,
       legacy: {
         screen_name: username,
         name,
@@ -1324,6 +1325,11 @@ describe('TwitterClient', () => {
       expect(result.success).toBe(true);
       expect(result.users?.length).toBe(1);
       expect(result.users?.[0].username).toBe('alpha');
+      expect(result.users?.[0].followersCount).toBe(10);
+      expect(result.users?.[0].followingCount).toBe(5);
+      expect(result.users?.[0].isBlueVerified).toBe(true);
+      expect(result.users?.[0].profileImageUrl).toBe('https://example.com/1.jpg');
+      expect(result.users?.[0].createdAt).toBe('2024-01-01T00:00:00Z');
       const [url] = mockFetch.mock.calls[0];
       expect(String(url)).toContain('/Following?');
     });

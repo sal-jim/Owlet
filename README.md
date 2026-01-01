@@ -161,6 +161,20 @@ When using `--json`, tweet objects include:
 | `inReplyToStatusId` | string? | Parent tweet ID (present if this is a reply) |
 | `quotedTweet` | object? | Embedded quote tweet (same schema; depth controlled by `--quote-depth`) |
 
+When using `--json` with `following`/`followers`, user objects include:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string | User ID |
+| `username` | string | Username/handle |
+| `name` | string | Display name |
+| `description` | string? | User bio |
+| `followersCount` | number? | Followers count |
+| `followingCount` | number? | Following count |
+| `isBlueVerified` | boolean? | Blue verified flag |
+| `profileImageUrl` | string? | Profile image URL |
+| `createdAt` | string? | Account creation timestamp |
+
 ## Query IDs (GraphQL)
 
 X rotates GraphQL “query IDs” frequently. Each GraphQL operation is addressed as:

@@ -266,11 +266,11 @@ export interface TwitterUser {
   username: string;
   name: string;
   description?: string;
-  followers_count?: number;
-  following_count?: number;
-  is_blue_verified?: boolean;
-  profile_image_url?: string;
-  created_at?: string;
+  followersCount?: number;
+  followingCount?: number;
+  isBlueVerified?: boolean;
+  profileImageUrl?: string;
+  createdAt?: string;
 }
 
 export interface FollowingResult {
@@ -2178,11 +2178,11 @@ export class TwitterClient {
           username,
           name: legacy?.name ?? core?.name ?? username,
           description: legacy?.description,
-          followers_count: legacy?.followers_count,
-          following_count: legacy?.friends_count,
-          is_blue_verified: userResult.is_blue_verified,
-          profile_image_url: legacy?.profile_image_url_https ?? userResult.avatar?.image_url,
-          created_at: legacy?.created_at ?? core?.created_at,
+          followersCount: legacy?.followers_count,
+          followingCount: legacy?.friends_count,
+          isBlueVerified: userResult.is_blue_verified,
+          profileImageUrl: legacy?.profile_image_url_https ?? userResult.avatar?.image_url,
+          createdAt: legacy?.created_at ?? core?.created_at,
         });
       }
     }
