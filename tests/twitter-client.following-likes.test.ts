@@ -200,6 +200,46 @@ describe('TwitterClient following/followers', () => {
     expect(result.success).toBe(true);
     expect(mockFetch).toHaveBeenCalledTimes(2);
   });
+
+  it('falls back to REST followers list after repeated 404s', async () => {
+    mockFetch
+      .mockResolvedValueOnce({ ok: false, status: 404, text: async () => 'nope' })
+      .mockResolvedValueOnce({ ok: false, status: 404, text: async () => 'still nope' })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          users: [
+            {
+              id_str: '1',
+              screen_name: 'alpha',
+              name: 'Alpha',
+              description: 'bio-1',
+              followers_count: 10,
+              friends_count: 5,
+              verified: true,
+              profile_image_url_https: 'https://example.com/1.jpg',
+              created_at: '2024-01-01T00:00:00Z',
+            },
+          ],
+        }),
+      });
+
+    const client = new TwitterClient({ cookies: validCookies });
+    const clientPrivate = client as unknown as TwitterClient & { getFollowersQueryIds: () => Promise<string[]> };
+    clientPrivate.getFollowersQueryIds = async () => ['test'];
+
+    const result = await client.getFollowers('123', 1);
+
+    expect(result.success).toBe(true);
+    expect(result.users?.[0].username).toBe('alpha');
+    expect(mockFetch).toHaveBeenCalledTimes(3);
+
+    const urls = mockFetch.mock.calls.map((call) => String(call[0]));
+    expect(urls[0]).toContain('/Followers?');
+    expect(urls[1]).toContain('/Followers?');
+    expect(urls[2]).toContain('/followers/list.json?');
+  });
 });
 
 describe('TwitterClient likes', () => {
