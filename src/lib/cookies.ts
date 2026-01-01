@@ -22,7 +22,7 @@ export type CookieSource = 'safari' | 'chrome' | 'firefox';
 const TWITTER_COOKIE_NAMES = ['auth_token', 'ct0'] as const;
 const TWITTER_URL = 'https://x.com/';
 const TWITTER_ORIGINS: string[] = ['https://x.com/', 'https://twitter.com/'];
-const DEFAULT_COOKIE_TIMEOUT_MS = 20_000;
+const DEFAULT_COOKIE_TIMEOUT_MS = 30_000;
 
 function normalizeValue(value: unknown): string | null {
   if (typeof value !== 'string') {

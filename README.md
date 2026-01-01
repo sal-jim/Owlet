@@ -129,7 +129,7 @@ Example `~/.config/bird/config.json5`:
   // Cookie source order for browser extraction (string or array)
   cookieSource: ["firefox", "safari"],
   firefoxProfile: "default-release",
-  cookieTimeoutMs: 20000,
+  cookieTimeoutMs: 30000,
   timeoutMs: 20000,
   quoteDepth: 1
 }
