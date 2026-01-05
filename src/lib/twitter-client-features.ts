@@ -216,6 +216,10 @@ export function buildListsFeatures(): Record<string, boolean> {
     responsive_web_grok_imagine_annotation_enabled: true,
     responsive_web_grok_community_note_auto_translation_is_enabled: false,
     responsive_web_enhance_cards_enabled: false,
+    responsive_web_text_conversations_enabled: false,
+    tweetypie_unmention_optimization_enabled: true,
+    vibe_api_enabled: false,
+    interactive_text_enabled: false,
   });
 }
 
