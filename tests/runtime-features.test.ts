@@ -29,6 +29,9 @@ describe('runtime-features', () => {
         likes: {
           likes_only: true,
         },
+        lists: {
+          responsive_web_text_conversations_enabled: true,
+        },
       },
     });
 
@@ -41,6 +44,9 @@ describe('runtime-features', () => {
     const likes = buildLikesFeatures();
     expect(likes.global_flag).toBe(true);
     expect(likes.likes_only).toBe(true);
+
+    const lists = buildListsFeatures();
+    expect(lists.responsive_web_text_conversations_enabled).toBe(true);
   });
 
   it('refresh merges defaults with existing cache', async () => {

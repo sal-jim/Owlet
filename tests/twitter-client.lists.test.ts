@@ -87,6 +87,45 @@ describe('TwitterClient lists', () => {
       expect(result.lists?.[0].owner?.username).toBe('testuser');
     });
 
+    it('includes required feature flags in list requests', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          data: {
+            user: {
+              result: {
+                timeline: {
+                  timeline: {
+                    instructions: [],
+                  },
+                },
+              },
+            },
+          },
+        }),
+      });
+
+      const client = new TwitterClient({ cookies: validCookies });
+      const clientPrivate = client as unknown as TwitterClientPrivate;
+      clientPrivate.getCurrentUser = async () => ({
+        success: true,
+        user: { id: '12345', username: 'testuser', name: 'Test User' },
+      });
+      clientPrivate.getListOwnershipsQueryIds = async () => ['test'];
+
+      await client.getOwnedLists(1);
+
+      const [url] = mockFetch.mock.calls[0];
+      const parsedFeatures = JSON.parse(new URL(url as string).searchParams.get('features') as string);
+      expect(parsedFeatures.responsive_web_graphql_exclude_directive_enabled).toBe(true);
+      expect(parsedFeatures.blue_business_profile_image_shape_enabled).toBe(false);
+      expect(parsedFeatures.responsive_web_text_conversations_enabled).toBe(false);
+      expect(parsedFeatures.tweetypie_unmention_optimization_enabled).toBe(true);
+      expect(parsedFeatures.vibe_api_enabled).toBe(false);
+      expect(parsedFeatures.interactive_text_enabled).toBe(false);
+    });
+
     it('handles private lists correctly', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
@@ -324,6 +363,29 @@ describe('TwitterClient lists', () => {
 
       expect(result.success).toBe(false);
       expect(result.error).toContain('Rate limit exceeded');
+    });
+
+    it('returns missing feature flag errors from the API', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          errors: [{ message: 'missing required feature flag: responsive_web_graphql_exclude_directive_enabled' }],
+        }),
+      });
+
+      const client = new TwitterClient({ cookies: validCookies });
+      const clientPrivate = client as unknown as TwitterClientPrivate;
+      clientPrivate.getCurrentUser = async () => ({
+        success: true,
+        user: { id: '12345', username: 'testuser', name: 'Test User' },
+      });
+      clientPrivate.getListOwnershipsQueryIds = async () => ['test'];
+
+      const result = await client.getOwnedLists(1);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toContain('missing required feature flag');
     });
 
     it('retries on 404 error after refreshing query IDs', async () => {
