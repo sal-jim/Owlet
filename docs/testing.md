@@ -16,6 +16,7 @@ Requirements:
 Run:
 - `pnpm test:live`
 - `pnpm bird following --all --max-pages 2 --json --cookie-source chrome --chrome-profile Default`
+- `pnpm bird list-timeline <list-id> --all --max-pages 2 --json --cookie-source chrome --chrome-profile Default`
 
 Notes:
 - Live tests are skipped unless `BIRD_LIVE=1` (set by `pnpm test:live`).

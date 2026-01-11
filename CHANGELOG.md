@@ -2,6 +2,9 @@
 
 ## 0.6.1 — 2026-01-11
 
+### Added
+- `list-timeline` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#30) — thanks @zheli.
+
 ### Fixed
 - macOS cookie extraction now supports Brave keychain storage (#40) — thanks @gakonst.
 - Terminal hyperlinks now sanitize control characters before emitting OSC 8 sequences (#29) — thanks @mafulafunk.
