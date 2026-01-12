@@ -42,6 +42,8 @@ bird 1234567890123456789 --json
 # Thread + replies
 bird thread https://x.com/user/status/1234567890123456789
 bird replies 1234567890123456789
+bird replies 1234567890123456789 --max-pages 3 --json
+bird thread 1234567890123456789 --max-pages 3 --json
 
 # Search + mentions
 bird search "from:steipete" -n 5
@@ -100,8 +102,8 @@ const result = await client.search('from:steipete', 50);
 - `bird query-ids [--fresh] [--json]` — inspect or refresh cached GraphQL query IDs.
 - `bird read <tweet-id-or-url> [--json]` — fetch tweet content as text or JSON.
 - `bird <tweet-id-or-url> [--json]` — shorthand for `read` when only a URL or ID is provided.
-- `bird replies <tweet-id-or-url> [--json]` — list replies to a tweet.
-- `bird thread <tweet-id-or-url> [--json]` — show the full conversation thread.
+- `bird replies <tweet-id-or-url> [--all] [--max-pages n] [--cursor string] [--delay ms] [--json]` — list replies to a tweet.
+- `bird thread <tweet-id-or-url> [--all] [--max-pages n] [--cursor string] [--delay ms] [--json]` — show the full conversation thread.
 - `bird search "<query>" [-n count] [--json]` — search for tweets matching a query.
 - `bird mentions [-n count] [--user @handle] [--json]` — find tweets mentioning a user (defaults to the authenticated user).
 - `bird user-tweets <@handle> [-n count] [--cursor string] [--max-pages n] [--delay ms] [--json]` — get tweets from a user's profile timeline.
@@ -177,7 +179,7 @@ Environment shortcuts:
 ## Output
 
 - `--json` prints raw tweet objects for read/replies/thread/search/mentions/user-tweets/bookmarks/likes.
-- When using `--json` with pagination (`--cursor`, `--max-pages`, or `-n > 20`), `user-tweets` prints `{ tweets, nextCursor }`.
+- When using `--json` with pagination (`--all`, `--cursor`, `--max-pages`, or for `user-tweets` when `-n > 20`), output is `{ tweets, nextCursor }`.
 - `read` returns full text for Notes and Articles when present.
 - Use `--plain` for stable, script-friendly output (no emoji, no color).
 
