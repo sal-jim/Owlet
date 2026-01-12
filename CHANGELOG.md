@@ -14,6 +14,9 @@
 - Lists GraphQL feature flags updated to prevent 400s (#27) — thanks @zheli.
 - Likes pagination now follows cursors and avoids stalling on duplicate pages (#12) — thanks @titouv.
 
+### Tests
+- Following: split following/likes tests + cover cursor handling (#33) — thanks @VACInc.
+
 ## 0.6.0 — 2026-01-05
 
 ### Added
