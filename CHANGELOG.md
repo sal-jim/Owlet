@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.6.1 — 2026-01-11
+## 0.7.0 — Unreleased
 
 ### Added
 - `list-timeline` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#30) — thanks @zheli.
