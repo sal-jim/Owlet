@@ -14,6 +14,7 @@
 - Following/followers pagination now guards repeat cursors and standardizes JSON output (#28) — thanks @malpern.
 - Lists GraphQL feature flags updated to prevent 400s (#27) — thanks @zheli.
 - Likes pagination now follows cursors and avoids stalling on duplicate pages (#12) — thanks @titouv.
+- `pnpm run build:dist` now succeeds after tightening JSON/pagination option typing in tweet output commands.
 
 ### Tests
 - Following: split following/likes tests + cover cursor handling (#33) — thanks @VACInc.

@@ -40,7 +40,7 @@ export function registerBookmarksCommand(program: Command, ctx: CliContext): voi
           process.exit(1);
         }
 
-        const usePagination = cmdOpts.all || cmdOpts.cursor;
+        const usePagination = Boolean(cmdOpts.all || cmdOpts.cursor);
         if (maxPages !== undefined && !usePagination) {
           console.error(`${ctx.p('err')}--max-pages requires --all or --cursor.`);
           process.exit(1);
@@ -73,7 +73,7 @@ export function registerBookmarksCommand(program: Command, ctx: CliContext): voi
 
         if (result.success && result.tweets) {
           const emptyMessage = folderId ? 'No bookmarks found in folder.' : 'No bookmarks found.';
-          const isJson = cmdOpts.json || cmdOpts.jsonFull;
+          const isJson = Boolean(cmdOpts.json || cmdOpts.jsonFull);
           ctx.printTweetsResult(result, { json: isJson, usePagination, emptyMessage });
         } else {
           console.error(`${ctx.p('err')}Failed to fetch bookmarks: ${result.error}`);

@@ -107,7 +107,7 @@ export function registerListsCommand(program: Command, ctx: CliContext): void {
           process.exit(2);
         }
 
-        const usePagination = cmdOpts.all || cmdOpts.cursor || maxPages !== undefined;
+        const usePagination = Boolean(cmdOpts.all || cmdOpts.cursor || maxPages !== undefined);
         if (!usePagination && (!Number.isFinite(count) || count <= 0)) {
           console.error(`${ctx.p('err')}Invalid --count. Expected a positive integer.`);
           process.exit(1);
@@ -138,7 +138,7 @@ export function registerListsCommand(program: Command, ctx: CliContext): void {
           : await client.getListTimeline(listId, count, timelineOptions);
 
         if (result.success && result.tweets) {
-          const isJson = cmdOpts.json || cmdOpts.jsonFull;
+          const isJson = Boolean(cmdOpts.json || cmdOpts.jsonFull);
           ctx.printTweetsResult(result, {
             json: isJson,
             usePagination,

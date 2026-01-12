@@ -114,7 +114,7 @@ export function registerUserTweetsCommand(program: Command, ctx: CliContext): vo
         });
 
         if (result.success && result.tweets) {
-          const isJson = cmdOpts.json || cmdOpts.jsonFull;
+          const isJson = Boolean(cmdOpts.json || cmdOpts.jsonFull);
           ctx.printTweetsResult(result, {
             json: isJson,
             usePagination: wantsPaginationOutput,
