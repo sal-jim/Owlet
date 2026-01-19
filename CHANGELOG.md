@@ -5,9 +5,17 @@
 ### Added
 - `bookmarks` thread expansion controls (`--expand-root-only`, `--author-chain`, `--author-only`, `--full-chain-only`, `--include-ancestor-branches`, `--include-parent`, `--thread-meta`, `--sort-chronological`) for richer context exports (#55) — thanks @kkretschmer2.
 - `--chrome-profile-dir` to point at Chromium profile directories or cookie DB files (Arc/Brave/etc) for cookie extraction (#16) — thanks @tekumara.
+- `about` command to report account origin/location metadata (#51) — thanks @pjtf93.
+- `follow`/`unfollow` commands to manage follows (#54) — thanks @citizenlee.
+- Twitter client now supports like/unlike/retweet/unretweet/bookmark via the engagement mixin (#53) — thanks @the-vampiire.
 
 ### Fixed
 - `bookmarks` expanded JSON now preserves pagination `nextCursor`, and full-chain filtering only includes ancestor branches when requested.
+- Follow/unfollow REST fallback now supports cursor pagination for followers/following (#54).
+- About account live coverage now verifies data extraction paths (#51) — thanks @pjtf93.
+
+### Tests
+- Live tests now exercise engagement mutations (opt-in) (#53) — thanks @the-vampiire.
 
 ## 0.7.0 — 2026-01-12
 
@@ -17,12 +25,10 @@
 - `user-tweets` command to fetch a user's profile timeline (#34) — thanks @crcatala.
 - `replies` and `thread` now support pagination (`--all`, `--max-pages`, `--cursor`, `--delay`) (#35) — thanks @crcatala.
 - `search` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#42) — thanks @pjtf93.
-- `follow`/`unfollow` commands to manage follows (#54) — thanks @citizenlee.
 - `likes` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#44) — thanks @jsholmes.
 - `list-timeline` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#30) — thanks @zheli.
 - Rich text output now shows article previews, quoted tweets, and media links (#32) — thanks @odysseus0.
 - Long-form article tweets now render rich Draft.js content blocks/entities (#36) — thanks @crcatala.
-- Twitter client now supports like/unlike/retweet/unretweet/bookmark via the engagement mixin (#53) — thanks @the-vampiire.
 
 ### Changed
 - Library typing: `SearchResult` is now a discriminated union (so `error` only exists when `success: false`).
@@ -40,7 +46,6 @@
 
 ### Tests
 - Following: split following/likes tests + cover cursor handling (#33) — thanks @VACInc.
-- Live tests now exercise engagement mutations (opt-in) (#53) — thanks @the-vampiire.
 
 ## 0.6.0 — 2026-01-05
 
