@@ -159,6 +159,17 @@ d('live CLI (Twitter/X)', () => {
     expect(whoamiStdout).toContain('credentials:');
   });
 
+  it('about returns account JSON', async () => {
+    const aboutHandle = (process.env.BIRD_LIVE_ABOUT_HANDLE ?? handle).trim() || handle;
+    const about = await runBird([...baseArgs, '--cookie-timeout', cookieTimeoutArg, 'about', aboutHandle, '--json'], {
+      timeoutMs: 45_000,
+    });
+    expect(about.exitCode).toBe(0);
+    const payload = parseJson<Record<string, unknown>>(about.stdout);
+    expect(Array.isArray(payload)).toBe(false);
+    expect(Object.keys(payload).length).toBeGreaterThan(0);
+  });
+
   it('read returns tweet JSON', async () => {
     const read = await runBird([...baseArgs, '--cookie-timeout', cookieTimeoutArg, 'read', tweetId, '--json'], {
       timeoutMs: 45_000,

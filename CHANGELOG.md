@@ -8,6 +8,7 @@
 - `user-tweets` command to fetch a user's profile timeline (#34) — thanks @crcatala.
 - `replies` and `thread` now support pagination (`--all`, `--max-pages`, `--cursor`, `--delay`) (#35) — thanks @crcatala.
 - `search` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#42) — thanks @pjtf93.
+- `about` command for account origin/location details (#51) — thanks @pjtf93.
 - `likes` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#44) — thanks @jsholmes.
 - `list-timeline` now supports pagination (`--all`, `--max-pages`, `--cursor`) (#30) — thanks @zheli.
 - Rich text output now shows article previews, quoted tweets, and media links (#32) — thanks @odysseus0.

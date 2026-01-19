@@ -24,6 +24,7 @@ Run:
 Notes:
 - Live tests are skipped unless `BIRD_LIVE=1` (set by `pnpm test:live`).
 - Search query is configurable via `BIRD_LIVE_SEARCH_QUERY`.
+- About account handle is configurable via `BIRD_LIVE_ABOUT_HANDLE`.
 - Command timeout is configurable via `BIRD_LIVE_TIMEOUT_MS` (ms).
 - Cookie extraction timeout is configurable via `BIRD_LIVE_COOKIE_TIMEOUT_MS` (ms).
 - Spawned CLI `NODE_ENV` defaults to `production` (override with `BIRD_LIVE_NODE_ENV`).

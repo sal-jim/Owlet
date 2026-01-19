@@ -1,7 +1,10 @@
 import type { Command } from 'commander';
 import type { CliContext } from '../cli/shared.js';
+import { normalizeHandle } from '../lib/normalize-handle.js';
 import { TwitterClient } from '../lib/twitter-client.js';
 import type { TwitterUser } from '../lib/twitter-client-types.js';
+
+const LEADING_AT_REGEX = /^@+/;
 
 type PagedUsersResult = {
   success: boolean;
@@ -310,6 +313,59 @@ export function registerUserCommands(program: Command, ctx: CliContext): void {
         console.log(`${ctx.l('credentials')}${credentialSource}`);
       } else {
         console.error(`${ctx.p('err')}Failed to determine current user: ${result.error ?? 'Unknown error'}`);
+        process.exit(1);
+      }
+    });
+
+  program
+    .command('about')
+    .description('Get account origin and location information for a user')
+    .argument('<username>', 'Twitter username (with or without @)')
+    .option('--json', 'Output as JSON')
+    .action(async (username: string, cmdOpts: { json?: boolean }) => {
+      const opts = program.opts();
+      const timeoutMs = ctx.resolveTimeoutFromOptions(opts);
+      const normalizedHandle = normalizeHandle(username);
+
+      const { cookies, warnings } = await ctx.resolveCredentialsFromOptions(opts);
+
+      for (const warning of warnings) {
+        console.error(`${ctx.p('warn')}${warning}`);
+      }
+
+      if (!cookies.authToken || !cookies.ct0) {
+        console.error(`${ctx.p('err')}Missing required credentials`);
+        process.exit(1);
+      }
+
+      const client = new TwitterClient({ cookies, timeoutMs });
+      const result = await client.getUserAboutAccount(username);
+
+      if (result.success && result.aboutProfile) {
+        if (cmdOpts.json) {
+          console.log(JSON.stringify(result.aboutProfile, null, 2));
+        } else {
+          const profile = result.aboutProfile;
+          const displayHandle = normalizedHandle ?? username.replace(LEADING_AT_REGEX, '');
+          console.log(`${ctx.p('info')}Account information for @${displayHandle}:`);
+          if (profile.accountBasedIn) {
+            console.log(`  Account based in: ${profile.accountBasedIn}`);
+          }
+          if (profile.createdCountryAccurate !== undefined) {
+            console.log(`  Creation country accurate: ${profile.createdCountryAccurate ? 'Yes' : 'No'}`);
+          }
+          if (profile.locationAccurate !== undefined) {
+            console.log(`  Location accurate: ${profile.locationAccurate ? 'Yes' : 'No'}`);
+          }
+          if (profile.source) {
+            console.log(`${ctx.l('source')}${profile.source}`);
+          }
+          if (profile.learnMoreUrl) {
+            console.log(`  Learn more: ${profile.learnMoreUrl}`);
+          }
+        }
+      } else {
+        console.error(`${ctx.p('err')}Failed to fetch account information: ${result.error ?? 'Unknown error'}`);
         process.exit(1);
       }
     });
