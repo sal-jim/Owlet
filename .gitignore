@@ -20,3 +20,6 @@ bird
 *.tar
 *.tar.gz
 *.tgz
+
+# Bun build artifacts
+*.bun-build
