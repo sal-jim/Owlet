@@ -7,7 +7,7 @@ import { TwitterClient } from '../../src/lib/twitter-client.js';
 
 type RunResult = { exitCode: number; stdout: string; stderr: string; signal: NodeJS.Signals | null };
 
-const LIVE = process.env.BIRD_LIVE === '1';
+const LIVE = process.env.OWLET_LIVE === '1';
 
 const authToken = (process.env.AUTH_TOKEN ?? process.env.TWITTER_AUTH_TOKEN ?? '').trim();
 const ct0 = (process.env.CT0 ?? process.env.TWITTER_CT0 ?? '').trim();
@@ -17,11 +17,11 @@ const CLI_PATH = path.resolve(process.cwd(), 'dist', 'cli.js');
 const WHOAMI_HANDLE_REGEX = /^user:\s*@([A-Za-z0-9_]+)/m;
 const WHOAMI_USER_ID_REGEX = /^user_id:\s*([0-9]+)/m;
 const TWEET_ID_REGEX = /^\d+$/;
-const LIVE_NODE_ENV = (process.env.BIRD_LIVE_NODE_ENV ?? 'production').trim() || 'production';
+const LIVE_NODE_ENV = (process.env.OWLET_LIVE_NODE_ENV ?? 'production').trim() || 'production';
 
 function runBird(args: string[], options: { timeoutMs?: number } = {}): Promise<RunResult> {
   if (!LIVE) {
-    throw new Error('runBird() called without BIRD_LIVE=1');
+    throw new Error('runBird() called without OWLET_LIVE=1');
   }
 
   return new Promise((resolve) => {
@@ -77,8 +77,8 @@ async function sleep(ms: number): Promise<void> {
 const d = LIVE ? describe : describe.skip;
 
 d('live CLI (Twitter/X) all commands', () => {
-  const timeoutArg = (process.env.BIRD_LIVE_TIMEOUT_MS ?? '20000').trim();
-  const cookieTimeoutArg = (process.env.BIRD_LIVE_COOKIE_TIMEOUT_MS ?? '30000').trim();
+  const timeoutArg = (process.env.OWLET_LIVE_TIMEOUT_MS ?? '20000').trim();
+  const cookieTimeoutArg = (process.env.OWLET_LIVE_COOKIE_TIMEOUT_MS ?? '30000').trim();
   const baseArgs = ['--plain', '--timeout', timeoutArg, '--quote-depth', '0'];
 
   let whoamiStdout = '';
@@ -101,7 +101,7 @@ d('live CLI (Twitter/X) all commands', () => {
           'Missing live credentials.\n' +
             '- Option A: set AUTH_TOKEN + CT0 (or TWITTER_AUTH_TOKEN/TWITTER_CT0)\n' +
             '- Option B: login to x.com in Safari/Chrome/Firefox for cookie extraction\n\n' +
-            `bird check output:\n${check.stdout}\n${check.stderr}`,
+            `owlet check output:\n${check.stdout}\n${check.stderr}`,
         );
       }
     }
@@ -124,15 +124,15 @@ d('live CLI (Twitter/X) all commands', () => {
     }
     userId = userIdMatch[1];
 
-    const forcedTweetId = (process.env.BIRD_LIVE_TWEET_ID ?? '').trim();
+    const forcedTweetId = (process.env.OWLET_LIVE_TWEET_ID ?? '').trim();
     if (forcedTweetId) {
       if (!TWEET_ID_REGEX.test(forcedTweetId)) {
-        throw new Error(`Invalid BIRD_LIVE_TWEET_ID (expected digits): "${forcedTweetId}"`);
+        throw new Error(`Invalid OWLET_LIVE_TWEET_ID (expected digits): "${forcedTweetId}"`);
       }
       tweetId = forcedTweetId;
     } else {
       const searchQuery = (
-        process.env.BIRD_LIVE_SEARCH_QUERY ?? `from:${handle} -filter:replies -filter:retweets`
+        process.env.OWLET_LIVE_SEARCH_QUERY ?? `from:${handle} -filter:replies -filter:retweets`
       ).trim();
       const search = await runBird(
         [...baseArgs, '--cookie-timeout', cookieTimeoutArg, 'search', searchQuery, '-n', '25', '--json'],
@@ -151,13 +151,13 @@ d('live CLI (Twitter/X) all commands', () => {
       if (!TWEET_ID_REGEX.test(first)) {
         throw new Error(
           `Search returned no usable tweets. Query: "${searchQuery}". ` +
-            `Override with BIRD_LIVE_SEARCH_QUERY.\n${search.stdout}`,
+            `Override with OWLET_LIVE_SEARCH_QUERY.\n${search.stdout}`,
         );
       }
       tweetId = first;
     }
 
-    listId = (process.env.BIRD_LIVE_LIST_ID ?? '').trim();
+    listId = (process.env.OWLET_LIVE_LIST_ID ?? '').trim();
     if (!listId) {
       const lists = await runBird([...baseArgs, '--cookie-timeout', cookieTimeoutArg, 'lists', '-n', '1', '--json'], {
         timeoutMs: 45_000,
@@ -327,7 +327,7 @@ d('live CLI (Twitter/X) all commands', () => {
   });
 
   it('user-tweets returns JSON array', async () => {
-    const testHandle = process.env.BIRD_LIVE_USER_TWEETS_HANDLE || 'X';
+    const testHandle = process.env.OWLET_LIVE_USER_TWEETS_HANDLE || 'X';
     const userTweets = await runBird(
       [...baseArgs, '--cookie-timeout', cookieTimeoutArg, 'user-tweets', testHandle, '-n', '5', '--json'],
       {
@@ -342,7 +342,7 @@ d('live CLI (Twitter/X) all commands', () => {
 
   it('user-tweets paged JSON returns { tweets, nextCursor }', async () => {
     const testHandle =
-      process.env.BIRD_LIVE_USER_TWEETS_PAGED_HANDLE ?? process.env.BIRD_LIVE_USER_TWEETS_HANDLE ?? 'X';
+      process.env.OWLET_LIVE_USER_TWEETS_PAGED_HANDLE ?? process.env.OWLET_LIVE_USER_TWEETS_HANDLE ?? 'X';
     const userTweets = await runBird(
       [
         ...baseArgs,
@@ -449,12 +449,12 @@ d('live CLI (Twitter/X) all commands', () => {
   });
 
   it('engagement mutations work (opt-in)', async () => {
-    const engagementTweetId = (process.env.BIRD_LIVE_ENGAGEMENT_TWEET_ID ?? '').trim();
+    const engagementTweetId = (process.env.OWLET_LIVE_ENGAGEMENT_TWEET_ID ?? '').trim();
     if (!engagementTweetId) {
       return;
     }
     if (!TWEET_ID_REGEX.test(engagementTweetId)) {
-      throw new Error(`Invalid BIRD_LIVE_ENGAGEMENT_TWEET_ID (expected digits): "${engagementTweetId}"`);
+      throw new Error(`Invalid OWLET_LIVE_ENGAGEMENT_TWEET_ID (expected digits): "${engagementTweetId}"`);
     }
 
     const cookieTimeoutMs = Number.parseInt(cookieTimeoutArg, 10);

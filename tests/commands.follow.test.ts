@@ -30,7 +30,7 @@ describe('follow commands', () => {
     const followSpy = vi.spyOn(TwitterClient.prototype, 'follow').mockResolvedValue({ success: true });
     vi.spyOn(console, 'log').mockImplementation(() => undefined);
 
-    await program.parseAsync(['node', 'bird', 'follow', '12345']);
+    await program.parseAsync(['node', 'owlet', 'follow', '12345']);
 
     expect(lookupSpy).toHaveBeenCalledWith('12345');
     expect(followSpy).toHaveBeenCalledWith('999');
@@ -47,7 +47,7 @@ describe('follow commands', () => {
     const followSpy = vi.spyOn(TwitterClient.prototype, 'follow').mockResolvedValue({ success: true });
     vi.spyOn(console, 'log').mockImplementation(() => undefined);
 
-    await program.parseAsync(['node', 'bird', 'follow', '12345']);
+    await program.parseAsync(['node', 'owlet', 'follow', '12345']);
 
     expect(followSpy).toHaveBeenCalledWith('12345');
   });

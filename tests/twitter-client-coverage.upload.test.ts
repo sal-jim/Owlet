@@ -33,7 +33,7 @@ describe('TwitterClient upload coverage', () => {
 
   afterEach(() => {
     global.fetch = originalFetch;
-    delete process.env.BIRD_DEBUG_ARTICLE;
+    delete process.env.OWLET_DEBUG_ARTICLE;
     vi.restoreAllMocks();
   });
 
@@ -188,7 +188,7 @@ describe('TwitterClient upload coverage', () => {
 
   describe('article extraction edge cases', () => {
     it('logs article payloads when debug flag is set', () => {
-      process.env.BIRD_DEBUG_ARTICLE = '1';
+      process.env.OWLET_DEBUG_ARTICLE = '1';
       const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       const result = extractArticleText({

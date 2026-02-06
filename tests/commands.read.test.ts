@@ -29,7 +29,7 @@ describe('replies command', () => {
     const unpagedSpy = vi.spyOn(TwitterClient.prototype, 'getReplies').mockResolvedValue({ success: true, tweets: [] });
 
     try {
-      await program.parseAsync(['node', 'bird', 'replies', '123', '--max-pages', '2', '--json']);
+      await program.parseAsync(['node', 'owlet', 'replies', '123', '--max-pages', '2', '--json']);
       expect(pagedSpy).toHaveBeenCalledTimes(1);
       expect(unpagedSpy).toHaveBeenCalledTimes(0);
     } finally {
@@ -49,7 +49,7 @@ describe('replies command', () => {
 
     try {
       await expect(
-        program.parseAsync(['node', 'bird', 'replies', '123', '--all', '--max-pages', '-1']),
+        program.parseAsync(['node', 'owlet', 'replies', '123', '--all', '--max-pages', '-1']),
       ).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid --max-pages'));
     } finally {
@@ -68,7 +68,7 @@ describe('replies command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'replies', '123', '--all', '--delay', '-100'])).rejects.toThrow(
+      await expect(program.parseAsync(['node', 'owlet', 'replies', '123', '--all', '--delay', '-100'])).rejects.toThrow(
         'exit 1',
       );
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid --delay'));
@@ -104,7 +104,7 @@ describe('thread command', () => {
     const unpagedSpy = vi.spyOn(TwitterClient.prototype, 'getThread').mockResolvedValue({ success: true, tweets: [] });
 
     try {
-      await program.parseAsync(['node', 'bird', 'thread', '123', '--max-pages', '2', '--json']);
+      await program.parseAsync(['node', 'owlet', 'thread', '123', '--max-pages', '2', '--json']);
       expect(pagedSpy).toHaveBeenCalledTimes(1);
       expect(unpagedSpy).toHaveBeenCalledTimes(0);
     } finally {
@@ -123,7 +123,7 @@ describe('thread command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'thread', '123', '--all', '--max-pages', '0'])).rejects.toThrow(
+      await expect(program.parseAsync(['node', 'owlet', 'thread', '123', '--all', '--max-pages', '0'])).rejects.toThrow(
         'exit 1',
       );
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid --max-pages'));
@@ -143,7 +143,7 @@ describe('thread command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'thread', '123', '--all', '--delay', 'abc'])).rejects.toThrow(
+      await expect(program.parseAsync(['node', 'owlet', 'thread', '123', '--all', '--delay', 'abc'])).rejects.toThrow(
         'exit 1',
       );
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid --delay'));

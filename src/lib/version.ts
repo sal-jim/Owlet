@@ -49,9 +49,11 @@ function resolveStartDir(importMetaUrl?: string): string {
 
 export function resolvePackageVersion(importMetaUrl?: string): string {
   const injected =
-    typeof process !== 'undefined' && typeof process.env.BIRD_VERSION === 'string'
-      ? process.env.BIRD_VERSION.trim()
-      : '';
+    typeof process !== 'undefined' && typeof process.env.OWLET_VERSION === 'string'
+      ? process.env.OWLET_VERSION.trim()
+      : typeof process !== 'undefined' && typeof process.env.BIRD_VERSION === 'string'
+        ? process.env.BIRD_VERSION.trim()
+        : '';
   if (injected.length > 0) {
     return injected;
   }
@@ -139,9 +141,11 @@ function resolveGitShaFromGitDir(gitDir: string): string | null {
 
 export function resolveGitSha(importMetaUrl?: string): string | null {
   const injected =
-    typeof process !== 'undefined' && typeof process.env.BIRD_GIT_SHA === 'string'
-      ? process.env.BIRD_GIT_SHA.trim()
-      : '';
+    typeof process !== 'undefined' && typeof process.env.OWLET_GIT_SHA === 'string'
+      ? process.env.OWLET_GIT_SHA.trim()
+      : typeof process !== 'undefined' && typeof process.env.BIRD_GIT_SHA === 'string'
+        ? process.env.BIRD_GIT_SHA.trim()
+        : '';
   if (injected.length > 0) {
     return truncateSha(injected);
   }

@@ -29,7 +29,7 @@ describe('users commands', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'following', '--max-pages', '2'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'following', '--max-pages', '2'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--max-pages requires --all.'));
     } finally {
       exitSpy.mockRestore();
@@ -47,7 +47,7 @@ describe('users commands', () => {
 
     try {
       await expect(
-        program.parseAsync(['node', 'bird', 'following', '--cursor', 'prev', '--max-pages', '2']),
+        program.parseAsync(['node', 'owlet', 'following', '--cursor', 'prev', '--max-pages', '2']),
       ).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--max-pages requires --all.'));
     } finally {
@@ -70,7 +70,7 @@ describe('users commands', () => {
     });
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    await program.parseAsync(['node', 'bird', 'following', '--cursor', 'prev', '--json']);
+    await program.parseAsync(['node', 'owlet', 'following', '--cursor', 'prev', '--json']);
 
     const payload = JSON.parse(String(logSpy.mock.calls[0]?.[0]));
     expect(payload.users).toHaveLength(1);
@@ -92,7 +92,7 @@ describe('users commands', () => {
 
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    await program.parseAsync(['node', 'bird', 'following', '--cursor', 'prev']);
+    await program.parseAsync(['node', 'owlet', 'following', '--cursor', 'prev']);
 
     expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Next cursor: next-1'));
     expect(logSpy).toHaveBeenCalled();
@@ -112,7 +112,7 @@ describe('users commands', () => {
     });
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    await program.parseAsync(['node', 'bird', 'following', '--all', '--max-pages', '1', '--json']);
+    await program.parseAsync(['node', 'owlet', 'following', '--all', '--max-pages', '1', '--json']);
 
     const payload = JSON.parse(String(logSpy.mock.calls[0]?.[0]));
     expect(payload.users).toHaveLength(1);
@@ -135,7 +135,7 @@ describe('users commands', () => {
 
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    const run = program.parseAsync(['node', 'bird', 'following', '--all', '--max-pages', '1']);
+    const run = program.parseAsync(['node', 'owlet', 'following', '--all', '--max-pages', '1']);
     await vi.advanceTimersByTimeAsync(1000);
     await run;
 
@@ -171,7 +171,7 @@ describe('users commands', () => {
       });
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    const run = program.parseAsync(['node', 'bird', 'following', '--all', '--json']);
+    const run = program.parseAsync(['node', 'owlet', 'following', '--all', '--json']);
     await vi.advanceTimersByTimeAsync(1000);
     await run;
 
@@ -202,7 +202,7 @@ describe('users commands', () => {
       });
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    const run = program.parseAsync(['node', 'bird', 'following', '--all', '--json']);
+    const run = program.parseAsync(['node', 'owlet', 'following', '--all', '--json']);
     await vi.advanceTimersByTimeAsync(1000);
     await run;
 

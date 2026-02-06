@@ -320,9 +320,9 @@ export function extractArticleText(result: GraphqlTweetResult | undefined): stri
   }
 
   const articleResult = article.article_results?.result ?? article;
-  if (process.env.BIRD_DEBUG_ARTICLE === '1') {
+  if (process.env.OWLET_DEBUG_ARTICLE === '1' || process.env.BIRD_DEBUG_ARTICLE === '1') {
     console.error(
-      '[bird][debug][article] payload:',
+      '[owlet][debug][article] payload:',
       JSON.stringify(
         {
           rest_id: result?.rest_id,

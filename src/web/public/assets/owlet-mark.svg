@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Owlet mark">
+  <rect width="120" height="120" fill="#f5efe3" stroke="#2a2420" stroke-width="4" />
+  <path
+    d="M18 72c8-18 22-30 42-36l8-18 6 18c20 6 34 18 42 36-10-4-20-5-30-4-8 1-15 4-21 9l-5 4-5-4c-6-5-13-8-21-9-10-1-20 0-30 4z"
+    fill="#2a2420"
+  />
+  <circle cx="60" cy="62" r="4" fill="#f5efe3" />
+</svg>

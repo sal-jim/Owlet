@@ -79,7 +79,7 @@ export function withNews<TBase extends AbstractConstructor<TwitterClientBase>>(
         tabs = ['forYou', 'news', 'sports', 'entertainment'],
       } = options;
 
-      const debug = process.env.BIRD_DEBUG === '1';
+      const debug = process.env.OWLET_DEBUG === '1' || process.env.BIRD_DEBUG === '1';
 
       if (debug) {
         console.error(`[getNews] Fetching from tabs: ${tabs.join(', ')}`);
@@ -179,10 +179,11 @@ export function withNews<TBase extends AbstractConstructor<TwitterClientBase>>(
         errors?: Array<{ message: string; code?: number; [key: string]: any }>;
       };
 
-      // Debug: save response if BIRD_DEBUG_JSON is set
-      if (process.env.BIRD_DEBUG_JSON) {
+      // Debug: save response if OWLET_DEBUG_JSON (or legacy BIRD_DEBUG_JSON) is set
+      const debugJsonPath = process.env.OWLET_DEBUG_JSON ?? process.env.BIRD_DEBUG_JSON;
+      if (debugJsonPath) {
         const fs = await import('node:fs/promises');
-        const debugPath = process.env.BIRD_DEBUG_JSON.replace('.json', `-${tabName}.json`);
+        const debugPath = debugJsonPath.replace('.json', `-${tabName}.json`);
         await fs.writeFile(debugPath, JSON.stringify(data, null, 2)).catch(() => {});
       }
 
@@ -398,7 +399,7 @@ export function withNews<TBase extends AbstractConstructor<TwitterClientBase>>(
     }
 
     private async enrichWithTweets(items: NewsItem[], tweetsPerItem: number, includeRaw: boolean): Promise<void> {
-      const debug = process.env.BIRD_DEBUG === '1';
+      const debug = process.env.OWLET_DEBUG === '1' || process.env.BIRD_DEBUG === '1';
 
       for (const item of items) {
         try {

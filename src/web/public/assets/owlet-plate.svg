@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" role="img" aria-label="Owlet plate">
+  <rect width="640" height="400" fill="#1b1714" />
+  <rect x="24" y="24" width="592" height="352" fill="#f5efe3" stroke="#2a2420" stroke-width="8" />
+  <path
+    d="M140 250c32-60 86-100 180-120l34-60 24 60c94 20 148 60 180 120-44-16-84-18-120-16-32 2-60 16-84 40l-12 10-12-10c-24-24-52-38-84-40-36-2-76 0-120 16z"
+    fill="#2a2420"
+  />
+  <circle cx="320" cy="230" r="12" fill="#f5efe3" />
+  <text x="320" y="340" text-anchor="middle" fill="#2a2420" font-family="Georgia, serif" font-size="24" letter-spacing="4">
+    OWLET DAILY
+  </text>
+</svg>

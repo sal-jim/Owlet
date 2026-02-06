@@ -35,7 +35,7 @@ describe('users about command', () => {
     });
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
-    await program.parseAsync(['node', 'bird', 'about', 'pablotovar_', '--json']);
+    await program.parseAsync(['node', 'owlet', 'about', 'pablotovar_', '--json']);
 
     const payload = JSON.parse(String(logSpy.mock.calls[0]?.[0]));
     expect(payload).toEqual({
@@ -60,7 +60,7 @@ describe('users about command', () => {
     });
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'about', 'pablotovar__'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'about', 'pablotovar__'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(
         expect.stringContaining('Failed to fetch account information: Missing about_profile in response'),
       );

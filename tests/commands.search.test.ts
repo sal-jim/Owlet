@@ -30,7 +30,7 @@ describe('search command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'search', 'cats', '--max-pages', '2'])).rejects.toThrow(
+      await expect(program.parseAsync(['node', 'owlet', 'search', 'cats', '--max-pages', '2'])).rejects.toThrow(
         'exit 1',
       );
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--max-pages requires --all or --cursor'));
@@ -48,7 +48,7 @@ describe('search command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'search', 'cats', '--count', '0'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'search', 'cats', '--count', '0'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid --count. Expected a positive integer.'));
     } finally {
       exitSpy.mockRestore();
@@ -64,7 +64,7 @@ describe('search command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'search', 'cats', '--all', '--max-pages', '0'])).rejects.toThrow(
+      await expect(program.parseAsync(['node', 'owlet', 'search', 'cats', '--all', '--max-pages', '0'])).rejects.toThrow(
         'exit 1',
       );
       expect(errorSpy).toHaveBeenCalledWith(
@@ -84,7 +84,7 @@ describe('search command', () => {
     const searchSpy = vi.spyOn(TwitterClient.prototype, 'search').mockResolvedValue({ success: true, tweets: [] });
 
     try {
-      await program.parseAsync(['node', 'bird', 'search', 'cats', '--all', '--json']);
+      await program.parseAsync(['node', 'owlet', 'search', 'cats', '--all', '--json']);
       expect(getAllSpy).toHaveBeenCalledWith('cats', expect.objectContaining({ includeRaw: false }));
       expect(searchSpy).not.toHaveBeenCalled();
       expect(mockContext.printTweetsResult).toHaveBeenCalledWith(expect.objectContaining({ tweets: [] }), {
@@ -105,7 +105,7 @@ describe('search command', () => {
       .mockResolvedValue({ success: true, tweets: [] });
 
     try {
-      await program.parseAsync(['node', 'bird', 'search', 'cats', '--cursor', 'cursor-1']);
+      await program.parseAsync(['node', 'owlet', 'search', 'cats', '--cursor', 'cursor-1']);
       expect(getAllSpy).toHaveBeenCalledWith('cats', expect.objectContaining({ cursor: 'cursor-1' }));
       expect(mockContext.printTweetsResult).toHaveBeenCalledWith(expect.objectContaining({ tweets: [] }), {
         json: false,

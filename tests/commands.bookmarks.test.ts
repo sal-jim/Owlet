@@ -23,7 +23,7 @@ describe('bookmarks command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'bookmarks', '--max-pages', '2'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'bookmarks', '--max-pages', '2'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--max-pages requires --all or --cursor'));
     } finally {
       exitSpy.mockRestore();

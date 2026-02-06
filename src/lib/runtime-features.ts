@@ -84,11 +84,15 @@ function toFeatureOverrides(overrides: NormalizedFeatureOverrides): FeatureOverr
 }
 
 function resolveFeaturesCachePath(): string {
-  const override = process.env.BIRD_FEATURES_CACHE ?? process.env.BIRD_FEATURES_PATH;
+  const override =
+    process.env.OWLET_FEATURES_CACHE ??
+    process.env.OWLET_FEATURES_PATH ??
+    process.env.BIRD_FEATURES_CACHE ??
+    process.env.BIRD_FEATURES_PATH;
   if (override && override.trim().length > 0) {
     return path.resolve(override.trim());
   }
-  return path.join(homedir(), '.config', 'bird', DEFAULT_CACHE_FILENAME);
+  return path.join(homedir(), '.config', 'owlet', DEFAULT_CACHE_FILENAME);
 }
 
 function readOverridesFromFile(cachePath: string): NormalizedFeatureOverrides | null {
@@ -104,7 +108,7 @@ function readOverridesFromFile(cachePath: string): NormalizedFeatureOverrides | 
 }
 
 function readOverridesFromEnv(): NormalizedFeatureOverrides | null {
-  const raw = process.env.BIRD_FEATURES_JSON;
+  const raw = process.env.OWLET_FEATURES_JSON ?? process.env.BIRD_FEATURES_JSON;
   if (!raw || raw.trim().length === 0) {
     return null;
   }

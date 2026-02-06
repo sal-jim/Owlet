@@ -1,12 +1,12 @@
 {
-  "name": "@steipete/bird",
+  "name": "@sal-jim/owlet",
   "version": "0.8.0",
-  "description": "CLI tool for tweeting and replying via Twitter/X GraphQL API",
+  "description": "Owlet Daily: read-only newspaper UI built on bird (X/Twitter read-only)",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "bird": "dist/cli.js"
+    "owlet": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -17,13 +17,17 @@
   "scripts": {
     "build": "pnpm run build:dist && pnpm run build:binary",
     "build:dist": "tsc && node scripts/copy-dist-assets.js",
-    "build:binary": "BIRD_VERSION=$(node -p \"require('./package.json').version\") BIRD_GIT_SHA=$(git rev-parse --short=8 HEAD 2>/dev/null || true) bun build --compile --minify --env=BIRD_* src/cli.ts --outfile bird",
+    "build:binary": "OWLET_VERSION=$(node -p \"require('./package.json').version\") OWLET_GIT_SHA=$(git rev-parse --short=8 HEAD 2>/dev/null || true) bun build --compile --minify --env=OWLET_* src/cli.ts --outfile owlet",
     "dev": "tsx src/index.ts",
-    "bird": "pnpm run build:dist && node dist/cli.js",
+    "owlet:dev": "tsx src/web/server.ts",
+    "owlet": "pnpm run build:dist && node dist/web/server.js",
+    "hawk:dev": "pnpm run owlet:dev",
+    "hawk": "pnpm run owlet",
+    "owlet:cli": "pnpm run build:dist && node dist/cli.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:live": "pnpm run build:dist && BIRD_LIVE=1 vitest run --no-file-parallelism tests/live/live.test.ts",
-    "test:live:all": "pnpm run build:dist && BIRD_LIVE=1 vitest run --no-file-parallelism tests/live/live-all.test.ts",
+    "test:live": "pnpm run build:dist && OWLET_LIVE=1 vitest run --no-file-parallelism tests/live/live.test.ts",
+    "test:live:all": "pnpm run build:dist && OWLET_LIVE=1 vitest run --no-file-parallelism tests/live/live-all.test.ts",
     "lint": "pnpm run lint:biome && pnpm run lint:oxlint",
     "lint:biome": "biome check .",
     "lint:oxlint": "oxlint --type-aware --tsconfig tsconfig.oxlint.json --import-plugin --node-plugin --vitest-plugin --deny-warnings src tests scripts",

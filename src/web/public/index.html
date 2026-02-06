@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Owlet Daily</title>
+    <meta
+      name="description"
+      content="Owlet Daily builds a personal newspaper from your X feed and Explore news tabs."
+    />
+    <link rel="icon" href="./assets/owlet-mark.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div class="masthead__meta">
+          <span class="masthead__tag">Vol. 1</span>
+          <span class="masthead__tag">Personal Edition</span>
+        </div>
+        <div class="masthead__title">
+          <div class="masthead__logo">
+            <img src="./assets/owlet-mark.svg" alt="Owlet" />
+          </div>
+          <div>
+            <div class="masthead__name">Owlet Daily</div>
+            <div class="masthead__subtitle">A read-only newspaper from X</div>
+          </div>
+        </div>
+        <div class="masthead__meta masthead__meta--right">
+          <span id="issueDate" class="masthead__tag">--</span>
+          <span class="masthead__tag">Edition No. 004</span>
+        </div>
+      </header>
+
+      <section class="controls">
+        <div class="controls__intro">
+          <h1>Build your personal newspaper</h1>
+          <p>
+            Owlet reads X for you and compiles a front page, topic desk, and classifieds.
+            Choose the Explore tabs to scan and add a focus topic to shape the edition.
+          </p>
+        </div>
+
+        <form id="editionForm" class="controls__form">
+          <div class="controls__grid">
+            <label class="field">
+              <span class="field__label">Focus topic</span>
+              <input
+                name="query"
+                type="text"
+                placeholder="AI safety, NBA trade rumors, climate policy"
+                autocomplete="off"
+              />
+              <span class="field__hint">Optional. Owlet will assemble a topic desk from Latest search.</span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Headlines to pull</span>
+              <input name="newsCount" type="number" min="4" max="40" value="16" />
+              <span class="field__hint">Total news items across selected tabs.</span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Topic desk size</span>
+              <input name="topicCount" type="number" min="4" max="40" value="12" />
+              <span class="field__hint">How many posts to sample for your focus topic.</span>
+            </label>
+
+            <label class="field">
+              <span class="field__label">Classifieds size</span>
+              <input name="classifiedCount" type="number" min="3" max="30" value="10" />
+              <span class="field__hint">Posts per hiring and seeking list.</span>
+            </label>
+          </div>
+
+          <div class="controls__row">
+            <div class="toggle-group">
+              <div class="toggle-group__title">Explore tabs</div>
+              <label class="chip">
+                <input type="checkbox" name="tab" value="forYou" checked />
+                <span>For You</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="tab" value="news" checked />
+                <span>News</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="tab" value="sports" checked />
+                <span>Sports</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="tab" value="entertainment" checked />
+                <span>Entertainment</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="tab" value="trending" />
+                <span>Trending</span>
+              </label>
+            </div>
+
+            <div class="toggle-group">
+              <div class="toggle-group__title">Filters</div>
+              <label class="chip">
+                <input type="checkbox" name="aiOnly" />
+                <span>AI curated only</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="withTweets" checked />
+                <span>Attach related tweets</span>
+              </label>
+              <label class="chip">
+                <input type="checkbox" name="classifieds" checked />
+                <span>Include classifieds</span>
+              </label>
+            </div>
+
+            <div class="toggle-group">
+              <div class="toggle-group__title">Related tweets per headline</div>
+              <label class="field field--compact">
+                <input name="tweetsPerItem" type="number" min="1" max="6" value="3" />
+              </label>
+            </div>
+          </div>
+
+          <details class="auth">
+            <summary>Credentials (optional)</summary>
+            <div class="auth__grid">
+              <label class="field">
+                <span class="field__label">auth_token</span>
+                <input name="authToken" type="password" autocomplete="off" />
+              </label>
+              <label class="field">
+                <span class="field__label">ct0</span>
+                <input name="ct0" type="password" autocomplete="off" />
+              </label>
+              <label class="field">
+                <span class="field__label">Chrome profile</span>
+                <input name="chromeProfile" type="text" placeholder="Default" />
+              </label>
+              <label class="field">
+                <span class="field__label">Firefox profile</span>
+                <input name="firefoxProfile" type="text" placeholder="default-release" />
+              </label>
+              <div class="field field--chips">
+                <span class="field__label">Cookie sources</span>
+                <label class="chip">
+                  <input type="checkbox" name="cookieSource" value="safari" />
+                  <span>Safari</span>
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="cookieSource" value="chrome" />
+                  <span>Chrome</span>
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="cookieSource" value="firefox" />
+                  <span>Firefox</span>
+                </label>
+              </div>
+            </div>
+            <p class="auth__note">
+              Owlet uses your local browser cookies or explicit tokens. Nothing is posted to X.
+            </p>
+          </details>
+
+          <div class="controls__actions">
+            <button type="submit" class="btn">Print the edition</button>
+            <button type="button" id="clearForm" class="btn btn--ghost">Reset</button>
+            <span id="status" class="status">Ready to compile.</span>
+          </div>
+        </form>
+      </section>
+
+      <section id="edition" class="edition" hidden>
+        <div class="edition__paper" id="editionPaper"></div>
+      </section>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

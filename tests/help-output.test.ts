@@ -19,7 +19,7 @@ describe('root help output', () => {
     expect(help).toContain('followers');
     expect(help).toContain('likes');
 
-    expect(help).toContain('bird <tweet-id-or-url>');
+    expect(help).toContain('owlet <tweet-id-or-url>');
     expect(help).toContain('--json');
     expect(help).toContain('--json-full');
     expect(help).toContain('_raw');

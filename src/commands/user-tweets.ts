@@ -22,12 +22,12 @@ export function registerUserTweetsCommand(program: Command, ctx: CliContext): vo
       'after',
       () =>
         `\n${ctx.colors.section('Command Examples')}\n${[
-          formatExample('bird user-tweets @steipete', 'Get recent tweets from a user'),
-          formatExample('bird user-tweets steipete -n 10', 'Get 10 tweets (@ is optional)'),
-          formatExample('bird user-tweets @steipete -n 50', 'Fetch 50 tweets (paged)'),
-          formatExample('bird user-tweets @steipete --max-pages 3 -n 200', 'Safety cap (max 3 pages)'),
-          formatExample('bird user-tweets @steipete --json', 'Output as JSON'),
-          formatExample('bird user-tweets @steipete --cursor "DAABCg..."', 'Resume from cursor'),
+          formatExample('owlet user-tweets @steipete', 'Get recent tweets from a user'),
+          formatExample('owlet user-tweets steipete -n 10', 'Get 10 tweets (@ is optional)'),
+          formatExample('owlet user-tweets @steipete -n 50', 'Fetch 50 tweets (paged)'),
+          formatExample('owlet user-tweets @steipete --max-pages 3 -n 200', 'Safety cap (max 3 pages)'),
+          formatExample('owlet user-tweets @steipete --json', 'Output as JSON'),
+          formatExample('owlet user-tweets @steipete --cursor "DAABCg..."', 'Resume from cursor'),
         ].join('\n')}`,
     )
     .action(

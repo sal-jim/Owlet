@@ -40,7 +40,7 @@ describe('news command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'news', '--count', '0'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'news', '--count', '0'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--count must be a positive number'));
     } finally {
       exitSpy.mockRestore();
@@ -56,7 +56,7 @@ describe('news command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'news', '--count', '-5'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'news', '--count', '-5'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--count must be a positive number'));
     } finally {
       exitSpy.mockRestore();
@@ -72,7 +72,7 @@ describe('news command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'news', '--count', 'abc'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'news', '--count', 'abc'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--count must be a positive number'));
     } finally {
       exitSpy.mockRestore();
@@ -88,7 +88,7 @@ describe('news command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'news', '--tweets-per-item', '0'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'news', '--tweets-per-item', '0'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--tweets-per-item must be a positive number'));
     } finally {
       exitSpy.mockRestore();
@@ -104,7 +104,7 @@ describe('news command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'news', '--tweets-per-item', '-3'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'news', '--tweets-per-item', '-3'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--tweets-per-item must be a positive number'));
     } finally {
       exitSpy.mockRestore();
@@ -120,7 +120,7 @@ describe('news command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'news', '--tweets-per-item', 'xyz'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'news', '--tweets-per-item', 'xyz'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('--tweets-per-item must be a positive number'));
     } finally {
       exitSpy.mockRestore();
@@ -145,7 +145,7 @@ describe('news command', () => {
     const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => undefined);
 
     try {
-      await expect(program.parseAsync(['node', 'bird', 'news'])).rejects.toThrow('exit 1');
+      await expect(program.parseAsync(['node', 'owlet', 'news'])).rejects.toThrow('exit 1');
       expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Missing required credentials'));
     } finally {
       exitSpy.mockRestore();
@@ -173,7 +173,7 @@ describe('news command', () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => undefined);
 
     try {
-      await program.parseAsync(['node', 'bird', 'news', '--with-tweets', '--tweets-per-item', '2', '--count', '1']);
+      await program.parseAsync(['node', 'owlet', 'news', '--with-tweets', '--tweets-per-item', '2', '--count', '1']);
       expect(getNewsSpy).toHaveBeenCalledWith(1, expect.objectContaining({ tweetsPerItem: 2, withTweets: true }));
       const tweetLines = logSpy.mock.calls
         .map((call) => String(call[0]))

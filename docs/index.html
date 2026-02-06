@@ -6,19 +6,19 @@
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#0b0d10" />
 
-    <title>bird.fast — fast X CLI</title>
+    <title>Owlet Daily — read-only X reader</title>
     <meta
       name="description"
-      content="bird is a fast X CLI for tweeting, replying, and reading via the X/Twitter GraphQL API (cookie auth)."
+      content="Owlet Daily is a fast, read-only X CLI and daily newspaper UI built on bird (cookie auth)."
     />
 
-    <link rel="canonical" href="https://bird.fast/" />
+    <link rel="canonical" href="https://github.com/sal-jim/Owlet" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
 
-    <meta property="og:title" content="bird.fast" />
-    <meta property="og:description" content="Fast X CLI for tweeting, replying, and reading." />
+    <meta property="og:title" content="Owlet Daily" />
+    <meta property="og:description" content="Read-only X CLI and daily newspaper UI built on bird." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://bird.fast/" />
+    <meta property="og:url" content="https://github.com/sal-jim/Owlet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,18 +42,18 @@
 
     <header class="top">
       <div class="top__inner">
-        <a class="brand" href="./" aria-label="bird.fast home">
+        <a class="brand" href="./" aria-label="Owlet Daily home">
           <span class="brand__mark" aria-hidden="true">
             <img src="./assets/mark.svg" width="26" height="26" alt="" />
           </span>
-          <span class="brand__word">bird</span>
-          <span class="brand__dot">.fast</span>
+          <span class="brand__word">owlet</span>
+          <span class="brand__dot">.daily</span>
         </a>
 
         <nav class="nav">
           <a class="nav__link" href="#install">Install</a>
           <a class="nav__link" href="#commands">Commands</a>
-          <a class="nav__link" href="https://github.com/steipete/bird">GitHub</a>
+          <a class="nav__link" href="https://github.com/sal-jim/Owlet">GitHub</a>
         </nav>
       </div>
     </header>
@@ -64,17 +64,17 @@
           <p class="kicker" data-reveal>Fast X CLI. Cookie auth. Zero fuss.</p>
 
           <h1 class="title" data-reveal>
-            <span class="title__big">bird</span><span class="title__dot">.fast</span>
+            <span class="title__big">owlet</span><span class="title__dot">.daily</span>
           </h1>
 
           <p class="lede" data-reveal>
-            Tweet, reply, read threads, search, mentions — powered by X/Twitter GraphQL and your existing
+            Read threads, search, mentions, and Explore headlines — powered by X/Twitter GraphQL and your existing
             browser session.
           </p>
 
           <div class="cta" data-reveal>
             <a class="btn btn--hot" href="#install">Install</a>
-            <a class="btn btn--ghost" href="https://github.com/steipete/bird#quickstart">Quickstart</a>
+            <a class="btn btn--ghost" href="https://github.com/sal-jim/Owlet#run-it-locally">Quickstart</a>
           </div>
 
           <div class="terminal" data-reveal>
@@ -85,10 +85,10 @@
               <span class="terminal__label">copy &amp; run</span>
             </div>
             <div class="terminal__body">
-              <pre><code id="installCmd">npm install -g @steipete/bird
+              <pre><code id="installCmd">npm install -g @sal-jim/owlet
 
-bird whoami
-bird tweet "hi from bird.fast"</code></pre>
+owlet whoami
+owlet news -n 10</code></pre>
               <button class="copy" type="button" data-copy="#installCmd">
                 <span class="copy__idle">Copy</span>
                 <span class="copy__done" aria-hidden="true">Copied</span>
@@ -97,17 +97,17 @@ bird tweet "hi from bird.fast"</code></pre>
           </div>
 
           <div class="badges" data-reveal>
-            <a class="badge" href="https://www.npmjs.com/package/@steipete/bird">
+            <a class="badge" href="https://www.npmjs.com/package/@sal-jim/owlet">
               <span class="badge__k">npm</span>
-              <span class="badge__v">@steipete/bird</span>
+              <span class="badge__v">@sal-jim/owlet</span>
+            </a>
+            <a class="badge" href="https://github.com/sal-jim/Owlet">
+              <span class="badge__k">repo</span>
+              <span class="badge__v">sal-jim/Owlet</span>
             </a>
             <a class="badge" href="https://github.com/steipete/bird">
-              <span class="badge__k">repo</span>
+              <span class="badge__k">built on</span>
               <span class="badge__v">steipete/bird</span>
-            </a>
-            <a class="badge" href="https://github.com/steipete/bird#authentication-graphql">
-              <span class="badge__k">auth</span>
-              <span class="badge__v">cookies</span>
             </a>
           </div>
         </div>
@@ -119,20 +119,21 @@ bird tweet "hi from bird.fast"</code></pre>
           <div class="cards">
             <article class="card">
               <h3 class="h3">npm / pnpm / bun</h3>
-              <p class="p">Pick your poison. Node ≥ 20.</p>
-              <pre class="code"><code>npm install -g @steipete/bird
-pnpm add -g @steipete/bird
-bun add -g @steipete/bird</code></pre>
+              <p class="p">Pick your poison. Node ≥ 22.</p>
+              <pre class="code"><code>npm install -g @sal-jim/owlet
+pnpm add -g @sal-jim/owlet
+bun add -g @sal-jim/owlet</code></pre>
             </article>
             <article class="card">
               <h3 class="h3">One-shot</h3>
               <p class="p">No install. Just prove it works.</p>
-              <pre class="code"><code>bunx @steipete/bird whoami</code></pre>
+              <pre class="code"><code>bunx @sal-jim/owlet whoami</code></pre>
             </article>
             <article class="card">
-              <h3 class="h3">Homebrew (macOS)</h3>
-              <p class="p">Prebuilt Bun binary.</p>
-              <pre class="code"><code>brew install steipete/tap/bird</code></pre>
+              <h3 class="h3">From source</h3>
+              <p class="p">Run the UI locally.</p>
+              <pre class="code"><code>pnpm install
+pnpm run owlet</code></pre>
             </article>
           </div>
         </div>
@@ -141,23 +142,25 @@ bun add -g @steipete/bird</code></pre>
       <section class="stripe stripe--tight" id="commands">
         <div class="stripe__inner">
           <h2 class="h2">Commands</h2>
-          <p class="p p--muted">Everything you need for a fast “read → reply → move on” loop.</p>
+          <p class="p p--muted">Everything you need for a fast “read → summarize → move on” loop.</p>
 
-          <div class="cmds" role="tablist" aria-label="bird commands">
-            <button class="cmd is-on" type="button" data-cmd="tweet" role="tab" aria-selected="true">
-              tweet
+          <div class="cmds" role="tablist" aria-label="owlet commands">
+            <button class="cmd is-on" type="button" data-cmd="news" role="tab" aria-selected="true">
+              news
             </button>
-            <button class="cmd" type="button" data-cmd="reply" role="tab" aria-selected="false">reply</button>
             <button class="cmd" type="button" data-cmd="read" role="tab" aria-selected="false">read</button>
             <button class="cmd" type="button" data-cmd="thread" role="tab" aria-selected="false">thread</button>
             <button class="cmd" type="button" data-cmd="search" role="tab" aria-selected="false">search</button>
             <button class="cmd" type="button" data-cmd="mentions" role="tab" aria-selected="false">
               mentions
             </button>
+            <button class="cmd" type="button" data-cmd="bookmarks" role="tab" aria-selected="false">
+              bookmarks
+            </button>
           </div>
 
           <div class="demo" aria-live="polite">
-            <pre class="demo__pre"><code id="demoCode">bird tweet "ship it"</code></pre>
+            <pre class="demo__pre"><code id="demoCode">owlet news -n 10</code></pre>
             <button class="copy copy--demo" type="button" data-copy="#demoCode">
               <span class="copy__idle">Copy</span>
               <span class="copy__done" aria-hidden="true">Copied</span>
@@ -181,7 +184,7 @@ bun add -g @steipete/bird</code></pre>
               <div class="step__num">02</div>
               <h3 class="h3">GraphQL first</h3>
               <p class="p p--muted">
-                Talks to X’s internal endpoints. Query IDs rotate — bird auto-refreshes and caches them.
+                Talks to X’s internal endpoints. Query IDs rotate — owlet auto-refreshes and caches them.
               </p>
             </article>
             <article class="step">
@@ -199,20 +202,16 @@ bun add -g @steipete/bird</code></pre>
             <div class="notice__body">
               <p class="notice__title">Undocumented API.</p>
               <p class="notice__text">
-                bird uses X/Twitter’s private web GraphQL endpoints and rotating query IDs. X can change things anytime —
+                owlet uses X/Twitter’s private web GraphQL endpoints and rotating query IDs. X can change things anytime —
                 expect breakage without notice.
               </p>
             </div>
           </aside>
 
           <div class="footerline">
-            <a class="tiny" href="https://github.com/steipete/bird#authentication-graphql">
-              Authentication details
-            </a>
+            <a class="tiny" href="https://github.com/sal-jim/Owlet">Docs on GitHub</a>
             <span class="sep" aria-hidden="true">•</span>
-            <a class="tiny" href="https://github.com/steipete/bird#config-json5">Config (JSON5)</a>
-            <span class="sep" aria-hidden="true">•</span>
-            <a class="tiny" href="https://github.com/steipete/bird/issues">Issues</a>
+            <a class="tiny" href="https://github.com/sal-jim/Owlet/issues">Issues</a>
           </div>
         </div>
       </section>
@@ -221,9 +220,9 @@ bun add -g @steipete/bird</code></pre>
     <footer class="bottom">
       <div class="bottom__inner">
         <p class="tiny">
-          Made by <a href="https://steipete.me">Peter</a>. MIT licensed. Built for GitHub Pages.
+          Made by <a href="https://github.com/sal-jim">sal-jim</a>. MIT licensed. Built for GitHub Pages.
         </p>
-        <p class="tiny tiny--muted">bird.fast is the landing page; the project lives on GitHub.</p>
+        <p class="tiny tiny--muted">Owlet Daily lives on GitHub.</p>
       </div>
     </footer>
 

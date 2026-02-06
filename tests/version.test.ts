@@ -12,7 +12,7 @@ import {
 } from '../src/lib/version.js';
 
 function withTempDir<T>(fn: (dir: string) => T): T {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'bird-version-test-'));
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'owlet-version-test-'));
   try {
     return fn(dir);
   } finally {
@@ -22,8 +22,8 @@ function withTempDir<T>(fn: (dir: string) => T): T {
 
 describe('getCliVersion', () => {
   afterEach(() => {
-    delete process.env.BIRD_VERSION;
-    delete process.env.BIRD_GIT_SHA;
+    delete process.env.OWLET_VERSION;
+    delete process.env.OWLET_GIT_SHA;
   });
 
   it('reads package.json version when available', () => {
@@ -33,8 +33,8 @@ describe('getCliVersion', () => {
   });
 
   it('formats injected version + sha', () => {
-    process.env.BIRD_VERSION = '9.9.9';
-    process.env.BIRD_GIT_SHA = 'abcdef123456';
+    process.env.OWLET_VERSION = '9.9.9';
+    process.env.OWLET_GIT_SHA = 'abcdef123456';
     expect(formatVersionLine('not a url')).toBe('9.9.9 (abcdef12)');
   });
 

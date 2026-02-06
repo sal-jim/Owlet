@@ -1,8 +1,8 @@
-# Releasing bird
+# Releasing owlet
 
 Target destinations:
-- npm: `@steipete/bird`
-- Homebrew: tap formula in `steipete/homebrew-tap` (e.g., `bird.rb`)
+- npm: `@sal-jim/owlet`
+- Homebrew: tap formula in `sal-jim/homebrew-tap` (e.g., `owlet.rb`)
 
 ## Checklist (npm + GitHub)
 1) Version bump
@@ -16,10 +16,10 @@ Target destinations:
 
 3) Publish to npm (scoped)
    - Ensure you are logged in (`npm whoami`).
-   - `npm publish --access public` (from repo root). Package name is `@steipete/bird`.
+   - `npm publish --access public` (from repo root). Package name is `@sal-jim/owlet`.
    - Verify:
-     - `npm view @steipete/bird version`
-     - `npx -y @steipete/bird@<version> --help`
+     - `npm view @sal-jim/owlet version`
+     - `npx -y @sal-jim/owlet@<version> --help`
 
 4) Git tag & GitHub release
    - `git tag v<version> && git push origin v<version>`
@@ -27,25 +27,25 @@ Target destinations:
 
 ## Optional: attach compiled binary
 If you want a single-file binary for Homebrew/GitHub assets:
-- Build: `pnpm run binary` (uses Bun to produce `./bird`).
-- Upload `bird` to the GitHub release and use it for the Homebrew tarball.
+- Build: `pnpm run binary` (uses Bun to produce `./owlet`).
+- Upload `owlet` to the GitHub release and use it for the Homebrew tarball.
 
-## Homebrew tap update (steipete/homebrew-tap)
+## Homebrew tap update (sal-jim/homebrew-tap)
 1) Package the binary
-   - From repo root: `tar -czf bird-macos-universal-v<version>.tar.gz bird`
-   - Compute SHA: `shasum -a 256 bird-macos-universal-v<version>.tar.gz`
+   - From repo root: `tar -czf owlet-macos-universal-v<version>.tar.gz owlet`
+   - Compute SHA: `shasum -a 256 owlet-macos-universal-v<version>.tar.gz`
 
 2) Update formula in tap repo
-   - File: `homebrew-tap/bird.rb` (create if absent). Model it after `poltergeist.rb`.
+   - File: `homebrew-tap/owlet.rb` (create if absent). Model it after `poltergeist.rb`.
    - Fields to update:
-     - `url "https://github.com/steipete/bird/releases/download/v<version>/bird-macos-universal-v<version>.tar.gz"`
+     - `url "https://github.com/sal-jim/Owlet/releases/download/v<version>/owlet-macos-universal-v<version>.tar.gz"`
      - `sha256 "<calculated_sha>"`
      - `version "<version>"`
-   - Install block: `bin.install "bird"`
-   - `test do`: minimal `assert_match "<version>", shell_output("#{bin}/bird --version")`
+   - Install block: `bin.install "owlet"`
+   - `test do`: minimal `assert_match "<version>", shell_output("#{bin}/owlet --version")`
 
 3) Push tap changes
-   - `git add bird.rb && git commit -m "bird 0.1.0" && git push`
+   - `git add owlet.rb && git commit -m "owlet 0.1.0" && git push`
 
 ## Release order suggestion
 1) Merge to `main` and tag.
@@ -54,6 +54,6 @@ If you want a single-file binary for Homebrew/GitHub assets:
 4) Update Homebrew tap with new URL/SHA.
 
 ## Notes
-- Scoped npm name (`@steipete/bird`) requires `--access public` on first publish.
+- Scoped npm name (`@sal-jim/owlet`) requires `--access public` on first publish.
 - Homebrew formula assumes macOS universal binary; adjust URL/name if you ship per-arch.
 - Config defaults (JSON5) and Safari/Chrome/Firefox cookie selection are documented in `README.md` — keep that in sync for each release.

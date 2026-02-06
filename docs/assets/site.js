@@ -2,18 +2,18 @@ const by = (sel, root = document) => root.querySelector(sel);
 const all = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
 const demoSnippets = {
-  tweet: `bird tweet "ship it"`,
-  reply: `bird reply https://x.com/user/status/1234567890123456789 "same"`,
-  read: `bird read https://x.com/user/status/1234567890123456789`,
-  thread: `bird thread 1234567890123456789`,
-  search: `bird search "from:steipete" -n 5`,
-  mentions: `bird mentions -n 5`,
+  news: `owlet news -n 10`,
+  read: `owlet read https://x.com/user/status/1234567890123456789`,
+  thread: `owlet thread 1234567890123456789`,
+  search: `owlet search "from:steipete" -n 5`,
+  mentions: `owlet mentions -n 5`,
+  bookmarks: `owlet bookmarks -n 5`,
 };
 
 const setDemo = (key) => {
   const code = by("#demoCode");
   if (!code) return;
-  const value = demoSnippets[key] ?? demoSnippets.tweet;
+  const value = demoSnippets[key] ?? demoSnippets.news;
   code.textContent = value;
 };
 
@@ -22,7 +22,7 @@ const wireTabs = () => {
   if (buttons.length === 0) return;
   buttons.forEach((b) => {
     b.addEventListener("click", () => {
-      const key = b.getAttribute("data-cmd") ?? "tweet";
+      const key = b.getAttribute("data-cmd") ?? "news";
       buttons.forEach((x) => {
         const on = x === b;
         x.classList.toggle("is-on", on);
@@ -77,4 +77,3 @@ window.setTimeout(() => document.body.classList.add("is-ready"), 20);
 wireTabs();
 wireCopy();
 wireOrbs();
-

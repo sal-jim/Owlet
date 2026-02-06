@@ -8,11 +8,11 @@ import { createRuntimeQueryIdStore } from '../src/lib/runtime-query-ids.js';
 describe('runtime-query-ids', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
-    delete process.env.BIRD_QUERY_IDS_CACHE;
+    delete process.env.OWLET_QUERY_IDS_CACHE;
   });
 
   it('refreshes IDs by scanning discovered bundles and persists cache', async () => {
-    const cacheDir = path.join(os.tmpdir(), `bird-test-${randomUUID()}`);
+    const cacheDir = path.join(os.tmpdir(), `owlet-test-${randomUUID()}`);
     await mkdir(cacheDir, { recursive: true });
     const cachePath = path.join(cacheDir, 'query-ids.json');
 
@@ -63,10 +63,10 @@ describe('runtime-query-ids', () => {
   });
 
   it('uses env cache path override and returns fresh snapshot without refreshing', async () => {
-    const cacheDir = path.join(os.tmpdir(), `bird-test-${randomUUID()}`);
+    const cacheDir = path.join(os.tmpdir(), `owlet-test-${randomUUID()}`);
     await mkdir(cacheDir, { recursive: true });
     const cachePath = path.join(cacheDir, 'query-ids-cache.json');
-    process.env.BIRD_QUERY_IDS_CACHE = cachePath;
+    process.env.OWLET_QUERY_IDS_CACHE = cachePath;
 
     const snapshot = {
       fetchedAt: new Date().toISOString(),
@@ -88,7 +88,7 @@ describe('runtime-query-ids', () => {
   });
 
   it('returns current snapshot when refresh finds no matching operations', async () => {
-    const cacheDir = path.join(os.tmpdir(), `bird-test-${randomUUID()}`);
+    const cacheDir = path.join(os.tmpdir(), `owlet-test-${randomUUID()}`);
     await mkdir(cacheDir, { recursive: true });
     const cachePath = path.join(cacheDir, 'query-ids.json');
 
@@ -125,7 +125,7 @@ describe('runtime-query-ids', () => {
   });
 
   it('throws when no bundles can be discovered', async () => {
-    const cacheDir = path.join(os.tmpdir(), `bird-test-${randomUUID()}`);
+    const cacheDir = path.join(os.tmpdir(), `owlet-test-${randomUUID()}`);
     await mkdir(cacheDir, { recursive: true });
     const cachePath = path.join(cacheDir, 'query-ids.json');
 

@@ -66,7 +66,7 @@ export function registerQueryIdsCommand(program: Command, ctx: CliContext): void
           return;
         }
         console.log(`${ctx.p('warn')}No cached query IDs yet.`);
-        console.log(`${ctx.p('info')}Run: bird query-ids --fresh`);
+        console.log(`${ctx.p('info')}Run: owlet query-ids --fresh`);
         console.log(`features_path: ${featureSnapshot.cachePath}`);
         return;
       }

@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
 /**
- * bird - CLI tool for posting tweets and replies
+ * owlet - CLI tool for reading tweets and compiling timelines
  *
  * Usage:
- *   bird tweet "Hello world!"
- *   bird reply <tweet-id> "This is a reply"
- *   bird reply <tweet-url> "This is a reply"
- *   bird read <tweet-id-or-url>
+ *   owlet read <tweet-id-or-url>
+ *   owlet news -n 10
+ *   owlet search "ai safety" -n 10 --json
  */
 
 import { createProgram, KNOWN_COMMANDS } from './cli/program.js';
@@ -31,5 +30,5 @@ if (showHelp) {
 if (argv) {
   program.parse(argv);
 } else {
-  program.parse(['node', 'bird', ...normalizedArgs]);
+program.parse(['node', 'owlet', ...normalizedArgs]);
 }
