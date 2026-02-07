@@ -4,12 +4,118 @@ const edition = document.getElementById('edition');
 const editionPaper = document.getElementById('editionPaper');
 const issueDate = document.getElementById('issueDate');
 const clearForm = document.getElementById('clearForm');
+const demoEdition = document.getElementById('demoEdition');
 
 issueDate.textContent = new Date().toLocaleDateString('en-US', {
   weekday: 'long',
   month: 'short',
   day: 'numeric',
 });
+
+const DEMO_EDITION = {
+  headline: {
+    title: 'Owlet Daily Demo Edition',
+    category: 'Front Page',
+    timeAgo: 'Just now',
+    summary:
+      'Connect your X session to populate real headlines, topic desks, and classifieds. This preview shows the layout.',
+  },
+  briefing: {
+    themes: ['AI safety', 'Macro markets', 'Creator economy', 'Climate policy', 'Design systems'],
+    notes: [
+      'Owlet is read-only. No posting or replies.',
+      'Explore tabs are combined and deduplicated.',
+      'Topic desk uses Latest search for the focus query.',
+    ],
+  },
+  news: [
+    {
+      headline: 'AI labs agree on shared evals framework',
+      category: 'AI · Technology',
+      timeAgo: '2h ago',
+      postCount: 12800,
+      description: 'A joint proposal outlines baseline evaluations for frontier models and safety reporting.',
+      url: 'https://x.com/explore',
+    },
+    {
+      headline: 'Markets digest cooler inflation print',
+      category: 'Business',
+      timeAgo: '3h ago',
+      postCount: 6420,
+      description: 'Rates expectations shift after CPI surprises to the downside.',
+      url: 'https://x.com/explore',
+    },
+    {
+      headline: 'Indie game launches break records',
+      category: 'Entertainment',
+      timeAgo: '5h ago',
+      postCount: 4100,
+      description: 'Community-led marketing drives a breakout week for small studios.',
+      url: 'https://x.com/explore',
+    },
+    {
+      headline: 'Title fight set for Saturday night',
+      category: 'Sports',
+      timeAgo: '6h ago',
+      postCount: 5200,
+      description: 'Analysts preview the final weigh-in and betting lines.',
+      url: 'https://x.com/explore',
+    },
+  ],
+  trends: [
+    { headline: 'Open weights', postCount: 23000, timeAgo: '1h ago' },
+    { headline: 'Orbit fundraise', postCount: 8700, timeAgo: '2h ago' },
+    { headline: 'Weekend reading list', postCount: 5400, timeAgo: '3h ago' },
+  ],
+  topic: {
+    query: 'AI safety',
+    themes: ['Model evals', 'Red teaming', 'Policy', 'Interpretability'],
+    tweets: [
+      {
+        id: '1860000000000000001',
+        text: 'New evals proposal: common baselines and disclosure norms to reduce surprises.',
+        createdAt: new Date().toISOString(),
+        author: { username: 'researchdesk', name: 'Research Desk' },
+      },
+      {
+        id: '1860000000000000002',
+        text: 'Key takeaway: benchmarking should be as public as the models themselves.',
+        createdAt: new Date().toISOString(),
+        author: { username: 'policywatch', name: 'Policy Watch' },
+      },
+    ],
+  },
+  classifieds: {
+    hiring: [
+      {
+        id: '1860000000000000101',
+        text: 'Hiring: Product designer for AI tools. Remote, US time zones.',
+        createdAt: new Date().toISOString(),
+        author: { username: 'studioone', name: 'Studio One' },
+      },
+      {
+        id: '1860000000000000102',
+        text: 'Senior frontend engineer needed for newsroom analytics platform.',
+        createdAt: new Date().toISOString(),
+        author: { username: 'newslab', name: 'News Lab' },
+      },
+    ],
+    seeking: [
+      {
+        id: '1860000000000000201',
+        text: 'Open to work: data journalist specializing in climate and energy.',
+        createdAt: new Date().toISOString(),
+        author: { username: 'reporterx', name: 'Reporter X' },
+      },
+      {
+        id: '1860000000000000202',
+        text: 'Looking for contract design systems work. Available immediately.',
+        createdAt: new Date().toISOString(),
+        author: { username: 'uxscribe', name: 'UX Scribe' },
+      },
+    ],
+  },
+};
 
 function escapeHtml(value) {
   return String(value)
@@ -290,4 +396,10 @@ clearForm.addEventListener('click', () => {
   form.reset();
   statusEl.textContent = 'Ready to compile.';
   edition.hidden = true;
+});
+
+demoEdition.addEventListener('click', () => {
+  statusEl.textContent = 'Showing demo edition (no credentials required).';
+  editionPaper.innerHTML = buildEditionMarkup(DEMO_EDITION);
+  edition.hidden = false;
 });
