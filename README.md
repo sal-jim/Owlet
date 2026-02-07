@@ -2,8 +2,6 @@
 
 A calm, read-only daily newspaper UI that surfaces Explore headlines, topic desks, and classifieds — without any posting to X/Twitter.
 
-Built on top of **bird** ([steipete/bird](https://github.com/steipete/bird)) and heavily reworked into a newspaper experience.
-
 ```
      ,_,
     (O,O)
