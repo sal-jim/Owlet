@@ -1,8 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Owlet mark">
   <rect width="120" height="120" fill="#f5efe3" stroke="#2a2420" stroke-width="4" />
+
+  <!-- Owl head -->
   <path
-    d="M18 72c8-18 22-30 42-36l8-18 6 18c20 6 34 18 42 36-10-4-20-5-30-4-8 1-15 4-21 9l-5 4-5-4c-6-5-13-8-21-9-10-1-20 0-30 4z"
+    d="M28 78c0-24 14-44 32-44s32 20 32 44c0 14-10 24-32 24S28 92 28 78z"
     fill="#2a2420"
   />
-  <circle cx="60" cy="62" r="4" fill="#f5efe3" />
+
+  <!-- Ear tufts -->
+  <path d="M36 36l10 10-3-16z" fill="#2a2420" />
+  <path d="M84 36l-10 10 3-16z" fill="#2a2420" />
+
+  <!-- Eye whites -->
+  <circle cx="46" cy="70" r="10" fill="#f5efe3" />
+  <circle cx="74" cy="70" r="10" fill="#f5efe3" />
+
+  <!-- Pupils -->
+  <circle cx="46" cy="70" r="4" fill="#2a2420" />
+  <circle cx="74" cy="70" r="4" fill="#2a2420" />
+
+  <!-- Beak -->
+  <path d="M60 78l-6 10h12z" fill="#d9b27c" />
 </svg>
