@@ -1,22 +1,23 @@
 # Owlet Daily 🦉🗞️
 
-Owlet Daily is **my project** — a calm, read-only daily newspaper UI with significant changes from its origin. It is built out of **bird** ([steipete/bird](https://github.com/steipete/bird)) to surface Explore headlines, topic desks, and classifieds — without any posting to X/Twitter.
+A calm, read-only daily newspaper UI that surfaces Explore headlines, topic desks, and classifieds — without any posting to X/Twitter.
+
+Built on top of **bird** ([steipete/bird](https://github.com/steipete/bird)) and heavily reworked into a newspaper experience.
 
 ```
      ,_,
     (O,O)
-    (   )  Owlet
+    (   )  Owlet Daily
      " "
 ```
 
-## What This Is ✨
+## Features
 
-- Built out of **bird** ([steipete/bird](https://github.com/steipete/bird)) as the foundation.
-- Heavily reworked into a daily newspaper experience.
-- **Posting to X/Twitter is removed** — this project keeps only **read ability**.
-- Focused on compiling and presenting Explore content in a clean, newspaper-like layout.
+- Read-only by design — no posting, replying, or write actions to X/Twitter
+- Clean, newspaper-like layout for browsing Explore content
+- Lightweight and focused
 
-## Run It Locally 🚀
+## Getting Started
 
 1. Install dependencies:
 
@@ -24,26 +25,24 @@ Owlet Daily is **my project** — a calm, read-only daily newspaper UI with sign
 pnpm install
 ```
 
-2. Start the Owlet UI server:
+2. Start the server:
 
 ```bash
 pnpm run owlet
 ```
 
-3. Open the app in your browser:
+3. Open [http://localhost:4173](http://localhost:4173) in your browser.
 
-`http://localhost:4173`
+> Set `OWLET_PORT` to use a different port.
 
-Tip: set `OWLET_PORT` to change the port.
+## Development
 
-## Optional: Dev Mode 🧪
-
-If you want live-reload during development:
+For live-reload during development:
 
 ```bash
 pnpm run owlet:dev
 ```
 
-## Notes 🔒
+## Acknowledgements
 
-Owlet remains **read-only** by design. Posting, replying, or other write actions to X/Twitter are intentionally not included.
+Owlet Daily is built on [bird](https://github.com/steipete/bird) by [@steipete](https://github.com/steipete).
